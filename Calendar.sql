@@ -1,3 +1,5 @@
+
+
 create table Calendar 
 (
 `Date` date primary key,
@@ -8,8 +10,10 @@ create table Calendar
 `Month` INT,
 `Year` INT,
 `IsWeekend` BIT
-)
+);
 
+declare @Startdate date
+declare @EndDate date  
 set @StartDate = '2005-01-01'
 set @EndDate = curdate()
 
