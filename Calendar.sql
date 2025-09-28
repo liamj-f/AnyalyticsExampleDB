@@ -1,16 +1,15 @@
 create table Calendar 
-([Date] date primary key,
-[DayName] NVARCHAR(20),
-[DayOfWeek] INT,
-[WeekOfYear] INT,
-[MonthName] NVARCHAR(20),
-[Month] INT,
-[Year] INT,
-[IsWeekend] BIT
+(
+`Date` date primary key,
+`DayName` NVARCHAR(20),
+`DayOfWeek` INT,
+`WeekOfYear` INT,
+`MonthName` NVARCHAR(20),
+`Month` INT,
+`Year` INT,
+`IsWeekend` BIT
 )
 
-declare @StartDate date 
-declare @EndDate date
 set @StartDate = '2005-01-01'
 set @EndDate = curdate()
 
