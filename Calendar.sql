@@ -9,24 +9,48 @@ create table Calendar
 `Year` INT,
 `IsWeekend` BIT
 );
+create table Calendar 
+(
+`Date` date primary key,
+`DayName` NVARCHAR(20),
+`DayOfWeek` INT,
+`WeekOfYear` INT,
+`MonthName` NVARCHAR(20),
+`Month` INT,
+`Year` INT,
+`IsWeekend` BIT
+);
+DELIMITER //
 
-set @StartDate = '2005-01-01';
-set @EndDate = curdate();
-set @LoopDate = @StartDate;
+CREATE PROCEDURE FillCalendar()
+BEGIN
+    DECLARE StartDate DATE;
+    DECLARE EndDate DATE;
+    DECLARE LoopDate DATE;
 
-while @LoopDate <= @EndDate do
+    SET StartDate = '2005-01-01';
+    SET EndDate = CURDATE();
+    SET LoopDate = StartDate;
 
-begin 
-  insert into `Calendar` (`Date`, `DayName`, `DayOfWeek`, `WeekOfYear`, `MonthName`, `Month`, `Year`, `IsWeekend`)
-  values (@Loopdate, 
-          Date_Format(@LoopDate, '%W'),
-          Date_Format(@LoopDate, '%w'),
-          Date_Format(@LoopDate, '%v'),
-          Date_Format(@LoopDate, '%M'),
-          Date_Format(@LoopDate, '%m'),
-          Date_Format(@LoopDate, '%Y'),
-          case when Date_Format(@LoopDate, '%v') in (0,7) then 1 else 0 end
-          )
+    WHILE LoopDate <= EndDate DO
+        INSERT INTO `Calendar`
+            (`Date`, `DayName`, `DayOfWeek`, `WeekOfYear`, `MonthName`, `Month`, `Year`, `IsWeekend`)
+        VALUES (
+            LoopDate,
+            DATE_FORMAT(LoopDate, '%W'),
+            DAYOFWEEK(LoopDate),
+            WEEK(LoopDate, 3),
+            DATE_FORMAT(LoopDate, '%M'),
+            MONTH(LoopDate),
+            YEAR(LoopDate),
+            CASE WHEN DAYOFWEEK(LoopDate) IN (1,7) THEN 1 ELSE 0 END
+        );
 
-set @LoopDate = dateadd(@LoopDate INTERVAL 1 DAY)
-end
+        SET LoopDate = DATE_ADD(LoopDate, INTERVAL 1 DAY);
+    END WHILE;
+END;
+//
+
+DELIMITER ;
+
+CALL FillCalendar();
