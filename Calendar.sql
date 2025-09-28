@@ -1,5 +1,3 @@
-
-
 create table Calendar 
 (
 `Date` date primary key,
@@ -12,26 +10,22 @@ create table Calendar
 `IsWeekend` BIT
 );
 
-declare @Startdate date
-declare @EndDate date  
-set @StartDate = '2005-01-01'
-set @EndDate = curdate()
+set @StartDate = '2005-01-01';
+set @EndDate = curdate();
+set @LoopDate = @StartDate;
 
-declare @LoopDate date
-set @LoopDate = @StartDate
-
-while @LoopDate <= @EndDate
+while @LoopDate <= @EndDate do
 
 begin 
-  insert into [Calendar] ([Date], [DayName], [DayOfWeek], [WeekOfYear], [MonthName], [Month], [Year], [IsWeekend])
+  insert into `Calendar` (`Date`, `DayName`, `DayOfWeek`, `WeekOfYear`, `MonthName`, `Month`, `Year`, `IsWeekend`)
   values (@Loopdate, 
-          Date_Format(@LoopDate, %W),
-          Date_Format(@LoopDate, %w),
-          Date_Format(@LoopDate, %v),
-          Date_Format(@LoopDate, %M),
-          Date_Format(@LoopDate, %m),
-          Date_Format(@LoopDate, %Y),
-          case when Date_Format(@LoopDate, %v) in (0,7) then 1 else 0 end
+          Date_Format(@LoopDate, '%W'),
+          Date_Format(@LoopDate, '%w'),
+          Date_Format(@LoopDate, '%v'),
+          Date_Format(@LoopDate, '%M'),
+          Date_Format(@LoopDate, '%m'),
+          Date_Format(@LoopDate, '%Y'),
+          case when Date_Format(@LoopDate, '%v') in (0,7) then 1 else 0 end
           )
 
 set @LoopDate = dateadd(@LoopDate INTERVAL 1 DAY)
