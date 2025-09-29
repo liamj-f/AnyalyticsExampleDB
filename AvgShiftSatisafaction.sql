@@ -1,13 +1,15 @@
 CREATE TEMPORARY TABLE tmp (
     `Month` int,
+    MonthName nvarchar(50),
     NUTS1_Region VARCHAR(50),
     Flag TINYINT,
     AvgShiftLength DECIMAL(5,2),
     AvgSatisfactionScore DECIMAL(5,2)
 );
-INSERT INTO tmp (MonthName, NUTS1_Region, Flag)
+INSERT INTO tmp (Month, MonthName, NUTS1_Region, Flag)
 SELECT DISTINCT 
     Month, 
+    MonthName,
     NUTS1_Region, 
     Flag
 FROM Calendar
@@ -27,7 +29,7 @@ update tmp
                     ),
                     12
                 ),
-            2);
+            2)
         ELSE ROUND(
                 LEAST(
                     GREATEST(
@@ -36,7 +38,7 @@ update tmp
                     ),
                     13
                 ),
-            2);
+            2)
     END ;
 
 update tmp
