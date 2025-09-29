@@ -24,7 +24,7 @@ update tmp
         THEN ROUND(
                 LEAST(
                     GREATEST(
-                        8.5 + (SQRT(-2 * LN(RAND())) * COS(2 * PI() * RAND())) * 1.5,
+                        8 + (SQRT(-2 * LN(RAND())) * COS(2 * PI() * RAND())) * 1.2,
                         6
                     ),
                     12
@@ -33,7 +33,7 @@ update tmp
         ELSE ROUND(
                 LEAST(
                     GREATEST(
-                        9 + (SQRT(-2 * LN(RAND())) * COS(2 * PI() * RAND())) * 1.5,
+                        9.5 + (SQRT(-2 * LN(RAND())) * COS(2 * PI() * RAND())) * 1.5,
                         6.5
                     ),
                     13
@@ -45,11 +45,8 @@ update tmp
 SET AvgSatisfactionScore = ROUND(
     LEAST(
         GREATEST(
-            CASE 
-              WHEN AvgShiftLength > 11 
-              THEN 6 + ((Month - 1) / 11.0) * 2 + RAND() - 2
-              ELSE 6 + ((Month - 1) / 11.0) * 2 + RAND()
-            END,
+            (6 + ((Month - 1) / 10.0) * 2 + RAND())    -- upward month-on-month trend
+            - GREATEST(0, (AvgShiftLength - 10) * 3),  -- penalty grows as shift length > 11
         1),
     10),
 2);
