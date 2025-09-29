@@ -1,0 +1,173 @@
+table ShiftVsSatisfaction
+	lineageTag: 02c73fd9-1886-4804-ad74-ba5cb044bc7b
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: 08c9889d-b893-4278-a645-42a6d671abb7
+		summarizeBy: sum
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthName
+		dataType: string
+		lineageTag: 30ff21ab-348e-4419-93e7-662913f1fc48
+		summarizeBy: none
+		sourceColumn: MonthName
+
+		annotation SummarizationSetBy = Automatic
+
+	column NUTS1_Region
+		dataType: string
+		lineageTag: 8485f42a-3426-48b0-9086-dd6592b28c38
+		summarizeBy: none
+		sourceColumn: NUTS1_Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Flag
+		dataType: int64
+		formatString: 0
+		lineageTag: 96de3725-8e82-4e97-9737-b99bd1553ed1
+		summarizeBy: sum
+		sourceColumn: Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column AvgShiftLength
+		dataType: double
+		lineageTag: e3af4943-1569-4324-a40b-6b61a1fd2243
+		summarizeBy: sum
+		sourceColumn: AvgShiftLength
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"ShiftVsSatisfaction","TableItemName":"AvgShiftLength (bins)","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	column AvgSatisfactionScore
+		dataType: double
+		lineageTag: 25336778-394a-4532-861c-26bca25e5aa5
+		summarizeBy: sum
+		sourceColumn: AvgSatisfactionScore
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'AvgShiftLength (bins)' =
+			IF(
+				ISBLANK('ShiftVsSatisfaction'[AvgShiftLength]),
+				BLANK(),
+				IF(
+					'ShiftVsSatisfaction'[AvgShiftLength] >= 0,
+					ROUNDDOWN('ShiftVsSatisfaction'[AvgShiftLength], 0),
+					ROUNDUP('ShiftVsSatisfaction'[AvgShiftLength], 0)
+				)
+			)
+		lineageTag: cae1273e-7350-4bb2-ac2f-12e2c9ddf7c7
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "version": 0,
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "ShiftVsSatisfaction"
+				          }
+				        },
+				        "Property": "AvgShiftLength"
+				      }
+				    }
+				  ],
+				  "binningMetadata": {
+				    "binSize": {
+				      "value": 1.0,
+				      "unit": 0
+				    }
+				  }
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"s","Entity":"ShiftVsSatisfaction"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"s"}},"Property":"AvgShiftLength"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"s"}},"Property":"AvgShiftLength"}},"Size":1.0}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition ShiftVsSatisfaction = m
+		mode: import
+		source = ```
+				let
+				    SQL = "DROP TEMPORARY TABLE IF EXISTS tmp;
+				    CREATE TEMPORARY TABLE tmp (
+				    `Month` int,
+				    MonthName nvarchar(50),
+				    NUTS1_Region VARCHAR(50),
+				    Flag TINYINT,
+				    AvgShiftLength DECIMAL(5,2),
+				    AvgSatisfactionScore DECIMAL(5,2)
+				);
+				INSERT INTO tmp (Month, MonthName, NUTS1_Region, Flag)
+				SELECT DISTINCT 
+				    Month, 
+				    MonthName,
+				    NUTS1_Region, 
+				    Flag
+				FROM Calendar
+				INNER JOIN regions ON 1=1;
+				
+				  
+				update tmp
+				  set AvgShiftLength =
+				    -- Random Avg Shift Length
+				   CASE 
+				        WHEN Flag = 1 
+				        THEN ROUND(
+				                LEAST(
+				                    GREATEST(
+				                        8.5 + (SQRT(-2 * LN(RAND())) * COS(2 * PI() * RAND())) * 1.5,
+				                        6
+				                    ),
+				                    12
+				                ),
+				            2)
+				        ELSE ROUND(
+				                LEAST(
+				                    GREATEST(
+				                        9 + (SQRT(-2 * LN(RAND())) * COS(2 * PI() * RAND())) * 1.5,
+				                        6.5
+				                    ),
+				                    13
+				                ),
+				            2)
+				    END ;
+				
+				update tmp
+				SET AvgSatisfactionScore = ROUND(
+				    LEAST(
+				        GREATEST(
+				            CASE 
+				              WHEN AvgShiftLength > 11 
+				              THEN 6 + ((Month - 1) / 11.0) * 2 + RAND() - 2
+				              ELSE 6 + ((Month - 1) / 11.0) * 2 + RAND()
+				            END,
+				        1),
+				    10),
+				2);
+				
+				select *
+				from tmp",
+				    Source = MySQL.Database("192.168.0.2", "Sanctuary", [Query=SQL])
+				in
+				    Source
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

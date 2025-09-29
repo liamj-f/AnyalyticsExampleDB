@@ -1,0 +1,1025 @@
+cultureInfo en-GB
+
+	linguisticMetadata =
+			{
+			  "Version": "4.1.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "shift_vs_satisfaction": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ShiftVsSatisfaction"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "shift vs satisfaction": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "ShiftVsSatisfaction": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "shift vs gratification": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "shift vs consummation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "shift vs fulfilment": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "shift vs fulfillment": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "shift vs approval": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.482
+			          }
+			        },
+			        {
+			          "shift vs happiness": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.482
+			          }
+			        },
+			        {
+			          "shift vs contentment": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.482
+			          }
+			        },
+			        {
+			          "shift vs agreement": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.482
+			          }
+			        },
+			        {
+			          "shift vs enjoyment": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.482
+			          }
+			        },
+			        {
+			          "shift vs pleasure": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.468
+			          }
+			        }
+			      ]
+			    },
+			    "shift_vs_satisfaction.month": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ShiftVsSatisfaction",
+			          "ConceptualProperty": "Month"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "month": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "mth": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.736
+			          }
+			        }
+			      ]
+			    },
+			    "shift_vs_satisfaction.month_name": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ShiftVsSatisfaction",
+			          "ConceptualProperty": "MonthName"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "month name": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "MonthName": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "month nickname": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "month title": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "month label": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "month tag": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "mth name": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.6
+			          }
+			        }
+			      ]
+			    },
+			    "shift_vs_satisfaction.NUTS1_region": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ShiftVsSatisfaction",
+			          "ConceptualProperty": "NUTS1_Region"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "NUTS1 region": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "NUTS1_Region": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "region": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "nuts1 location": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.833
+			          }
+			        },
+			        {
+			          "location": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.818
+			          }
+			        },
+			        {
+			          "nuts1 province": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.75
+			          }
+			        },
+			        {
+			          "province": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.736
+			          }
+			        },
+			        {
+			          "nuts1 area": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "nuts1 district": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "nuts1 section": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "nuts1 zone": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "nuts1 continent": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "area": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.714
+			          }
+			        }
+			      ]
+			    },
+			    "shift_vs_satisfaction.flag": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ShiftVsSatisfaction",
+			          "ConceptualProperty": "Flag"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "flag": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "ensign": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "pennant": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "pennon": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "emblem": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "streamer": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "standard": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "bunting": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "banner": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        }
+			      ]
+			    },
+			    "shift_vs_satisfaction.avg_shift_length": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ShiftVsSatisfaction",
+			          "ConceptualProperty": "AvgShiftLength"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "avg shift length": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "AvgShiftLength": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "average shift length": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.591
+			          }
+			        },
+			        {
+			          "avg shift measurement": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "avg shift extent": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "avg shift interval": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.508
+			          }
+			        },
+			        {
+			          "avg shift distance": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        },
+			        {
+			          "avg shift span": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        },
+			        {
+			          "avg shift dimension": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        },
+			        {
+			          "avg shift size": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        },
+			        {
+			          "avg shift stretch": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        },
+			        {
+			          "avg shift quantity": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.482
+			          }
+			        }
+			      ]
+			    },
+			    "shift_vs_satisfaction.avg_satisfaction_score": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ShiftVsSatisfaction",
+			          "ConceptualProperty": "AvgSatisfactionScore"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "avg satisfaction score": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "AvgSatisfactionScore": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "average satisfaction score": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.591
+			          }
+			        },
+			        {
+			          "avg satisfaction notch": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        },
+			        {
+			          "avg satisfaction slash": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        },
+			        {
+			          "avg satisfaction groove": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        },
+			        {
+			          "avg satisfaction nick": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        },
+			        {
+			          "avg satisfaction cut": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        },
+			        {
+			          "avg satisfaction mark": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.492
+			          }
+			        },
+			        {
+			          "avg satisfaction total": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.468
+			          }
+			        },
+			        {
+			          "avg satisfaction tally": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.468
+			          }
+			        },
+			        {
+			          "avg satisfaction grade": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.468
+			          }
+			        }
+			      ]
+			    },
+			    "shift_vs_satisfaction.AvgShiftLength_bins": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "ShiftVsSatisfaction",
+			          "ConceptualProperty": "AvgShiftLength (bins)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "AvgShiftLength (bins)": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "AvgShiftLength (bin)": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.78
+			          }
+			        },
+			        {
+			          "AvgShiftLength": {
+			            "State": "Generated",
+			            "Weight": 0.75
+			          }
+			        },
+			        {
+			          "AvgShiftLength (hours)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  },
+			  "Relationships": {
+			    "shift_vs_satisfaction_in_NUTS1_region": {
+			      "Binding": {
+			        "ConceptualEntity": "ShiftVsSatisfaction"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "shift_vs_satisfaction": {
+			          "Target": {
+			            "Entity": "shift_vs_satisfaction"
+			          }
+			        },
+			        "shift_vs_satisfaction.NUTS1_region": {
+			          "Target": {
+			            "Entity": "shift_vs_satisfaction.NUTS1_region"
+			          }
+			        }
+			      },
+			      "SemanticSlots": {
+			        "Where": {
+			          "Role": "shift_vs_satisfaction.NUTS1_region"
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Preposition": {
+			            "Subject": {
+			              "Role": "shift_vs_satisfaction"
+			            },
+			            "Prepositions": [
+			              {
+			                "in": {
+			                  "State": "Generated"
+			                }
+			              }
+			            ],
+			            "Object": {
+			              "Role": "shift_vs_satisfaction.NUTS1_region"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "shift_vs_satisfactions_are_in_NUTS1_regions"
+			        }
+			      ]
+			    },
+			    "shift_vs_satisfaction_has_month": {
+			      "Binding": {
+			        "ConceptualEntity": "ShiftVsSatisfaction"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "shift_vs_satisfaction": {
+			          "Target": {
+			            "Entity": "shift_vs_satisfaction"
+			          }
+			        },
+			        "shift_vs_satisfaction.month": {
+			          "Target": {
+			            "Entity": "shift_vs_satisfaction.month"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "shift_vs_satisfaction"
+			            },
+			            "Object": {
+			              "Role": "shift_vs_satisfaction.month"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "shift_vs_satisfactions_have_months"
+			        }
+			      ]
+			    },
+			    "shift_vs_satisfaction_has_month_name": {
+			      "Binding": {
+			        "ConceptualEntity": "ShiftVsSatisfaction"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "shift_vs_satisfaction": {
+			          "Target": {
+			            "Entity": "shift_vs_satisfaction"
+			          }
+			        },
+			        "shift_vs_satisfaction.month_name": {
+			          "Target": {
+			            "Entity": "shift_vs_satisfaction.month_name"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "shift_vs_satisfaction"
+			            },
+			            "Object": {
+			              "Role": "shift_vs_satisfaction.month_name"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "shift_vs_satisfactions_have_month_names"
+			        }
+			      ]
+			    },
+			    "shift_vs_satisfaction_has_NUTS1_region": {
+			      "Binding": {
+			        "ConceptualEntity": "ShiftVsSatisfaction"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "shift_vs_satisfaction": {
+			          "Target": {
+			            "Entity": "shift_vs_satisfaction"
+			          }
+			        },
+			        "shift_vs_satisfaction.NUTS1_region": {
+			          "Target": {
+			            "Entity": "shift_vs_satisfaction.NUTS1_region"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "shift_vs_satisfaction"
+			            },
+			            "Object": {
+			              "Role": "shift_vs_satisfaction.NUTS1_region"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "shift_vs_satisfactions_have_NUTS1_regions"
+			        }
+			      ]
+			    },
+			    "shift_vs_satisfaction_has_flag": {
+			      "Binding": {
+			        "ConceptualEntity": "ShiftVsSatisfaction"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "shift_vs_satisfaction": {
+			          "Target": {
+			            "Entity": "shift_vs_satisfaction"
+			          }
+			        },
+			        "shift_vs_satisfaction.flag": {
+			          "Target": {
+			            "Entity": "shift_vs_satisfaction.flag"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "shift_vs_satisfaction"
+			            },
+			            "Object": {
+			              "Role": "shift_vs_satisfaction.flag"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "shift_vs_satisfactions_have_flags"
+			        }
+			      ]
+			    },
+			    "shift_vs_satisfaction_has_avg_shift_length": {
+			      "Binding": {
+			        "ConceptualEntity": "ShiftVsSatisfaction"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "shift_vs_satisfaction": {
+			          "Target": {
+			            "Entity": "shift_vs_satisfaction"
+			          }
+			        },
+			        "shift_vs_satisfaction.avg_shift_length": {
+			          "Target": {
+			            "Entity": "shift_vs_satisfaction.avg_shift_length"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "shift_vs_satisfaction"
+			            },
+			            "Object": {
+			              "Role": "shift_vs_satisfaction.avg_shift_length"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "shift_vs_satisfactions_have_avg_shift_lengths"
+			        }
+			      ]
+			    },
+			    "shift_vs_satisfaction_has_avg_satisfaction_score": {
+			      "Binding": {
+			        "ConceptualEntity": "ShiftVsSatisfaction"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "shift_vs_satisfaction": {
+			          "Target": {
+			            "Entity": "shift_vs_satisfaction"
+			          }
+			        },
+			        "shift_vs_satisfaction.avg_satisfaction_score": {
+			          "Target": {
+			            "Entity": "shift_vs_satisfaction.avg_satisfaction_score"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "shift_vs_satisfaction"
+			            },
+			            "Object": {
+			              "Role": "shift_vs_satisfaction.avg_satisfaction_score"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "shift_vs_satisfactions_have_avg_satisfaction_scores"
+			        }
+			      ]
+			    },
+			    "shift_vs_satisfaction_has_AvgShiftLength_bins": {
+			      "Binding": {
+			        "ConceptualEntity": "ShiftVsSatisfaction"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "shift_vs_satisfaction": {
+			          "Target": {
+			            "Entity": "shift_vs_satisfaction"
+			          }
+			        },
+			        "shift_vs_satisfaction.AvgShiftLength_bins": {
+			          "Target": {
+			            "Entity": "shift_vs_satisfaction.AvgShiftLength_bins"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "shift_vs_satisfaction"
+			            },
+			            "Object": {
+			              "Role": "shift_vs_satisfaction.AvgShiftLength_bins"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "shift_vs_satisfactions_have_AvgShiftLength_bins"
+			        }
+			      ]
+			    }
+			  },
+			  "Agents": {
+			    "Internal": {
+			      "Version": "1.1.0"
+			    }
+			  }
+			}
+		contentType: json
+

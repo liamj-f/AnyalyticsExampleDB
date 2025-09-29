@@ -1,0 +1,154 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.2.0/schema.json",
+  "name": "37e10d9bd249c333dc94",
+  "position": {
+    "x": 210.09118541033436,
+    "y": 63.221884498480243,
+    "z": 0,
+    "height": 550.516717325228,
+    "width": 609.84802431610944
+  },
+  "visual": {
+    "visualType": "areaChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ShiftVsSatisfaction"
+                    }
+                  },
+                  "Property": "AvgShiftLength (bins)"
+                }
+              },
+              "queryRef": "ShiftVsSatisfaction.AvgShiftLength (bins)",
+              "nativeQueryRef": "AvgShiftLength (hours)",
+              "active": true,
+              "displayName": "AvgShiftLength (hours)"
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ShiftVsSatisfaction"
+                    }
+                  },
+                  "Property": "Flag"
+                }
+              },
+              "queryRef": "ShiftVsSatisfaction.Flag",
+              "nativeQueryRef": "Flag"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "ShiftVsSatisfaction"
+                        }
+                      },
+                      "Property": "AvgShiftLength (bins)"
+                    }
+                  },
+                  "Function": 5
+                }
+              },
+              "queryRef": "CountNonNull(ShiftVsSatisfaction.AvgShiftLength (bins))",
+              "nativeQueryRef": "Count of AvgShiftLength (bins)"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "ShiftVsSatisfaction"
+                      }
+                    },
+                    "Property": "AvgShiftLength (bins)"
+                  }
+                },
+                "Function": 5
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "4ce838a00480eec56548",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "ShiftVsSatisfaction"
+              }
+            },
+            "Property": "Flag"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "4b61a24a4729c05a4250",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "ShiftVsSatisfaction"
+              }
+            },
+            "Property": "AvgShiftLength (bins)"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "cea5635108b3980c8533",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "ShiftVsSatisfaction"
+                  }
+                },
+                "Property": "AvgShiftLength (bins)"
+              }
+            },
+            "Function": 5
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}
