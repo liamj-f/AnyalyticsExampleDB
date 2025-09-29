@@ -1,5 +1,5 @@
 CREATE TEMPORARY TABLE tmp (
-    MonthName VARCHAR(50),
+    `Month` int,
     NUTS1_Region VARCHAR(50),
     Flag TINYINT,
     AvgShiftLength DECIMAL(5,2),
@@ -7,7 +7,7 @@ CREATE TEMPORARY TABLE tmp (
 );
 INSERT INTO tmp (MonthName, NUTS1_Region, Flag)
 SELECT DISTINCT 
-    MonthName, 
+    Month, 
     NUTS1_Region, 
     Flag
 FROM Calendar
@@ -19,19 +19,38 @@ update tmp
     -- Random Avg Shift Length
    CASE 
         WHEN Flag = 1 
-        THEN RAND() * (11 - 6) + 6 - RAND()
-        ELSE RAND() * (13 - 6) + 6 + RAND()
+        THEN ROUND(
+                LEAST(
+                    GREATEST(
+                        8.5 + (SQRT(-2 * LN(RAND())) * COS(2 * PI() * RAND())) * 1.5,
+                        6
+                    ),
+                    12
+                ),
+            2);
+        ELSE ROUND(
+                LEAST(
+                    GREATEST(
+                        9 + (SQRT(-2 * LN(RAND())) * COS(2 * PI() * RAND())) * 1.5,
+                        6.5
+                    ),
+                    13
+                ),
+            2);
     END ;
 
 update tmp
 SET AvgSatisfactionScore = ROUND(
     LEAST(
         GREATEST(
-            10 - (AvgShiftLength - 6) * (9.0 / 7.0)   -- inverse scale from 6-13 → ~1-10
-            + (RAND() - 0.5) * 2                       -- optional random jitter ±1
-        , 1),                                           -- minimum 1
-    10),                                               -- maximum 10
-2);    
+            CASE 
+              WHEN AvgShiftLength > 11 
+              THEN 6 + ((Month - 1) / 11.0) * 2 + RAND() - 2
+              ELSE 6 + ((Month - 1) / 11.0) * 2 + RAND()
+            END,
+        1),
+    10),
+2);
 
 
 select *
