@@ -43,9 +43,9 @@ jobs:
                     FLUSH PRIVILEGES;"
 
       - name: Install Atlas
-        uses: ariga/setup-atlas@v0
-        with:
-          version: latest
+        run: |
+              curl -sL https://github.com/ariga/atlas/releases/latest/download/atlas-linux-amd64 -o /usr/local/bin/atlas
+              chmod +x /usr/local/bin/atlas
 
       - name: Set environment variables
         run: |
