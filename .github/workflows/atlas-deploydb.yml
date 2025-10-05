@@ -1,0 +1,67 @@
+name: MySQL Sanctuary Schema Sync
+
+on:
+  push:
+    branches:
+      - "**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Install WireGuard
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wireguard resolvconf dnsutils mysql
+      - name: Write WireGuard config
+        run: |
+          echo "${{ secrets.WG_CONFIG }}" > wg0.conf
+      - name: Resolve DDNS and update wg0.conf
+        run: |
+          ip=$(dig +short 14monarch.tplinkdns.com @8.8.8.8 | tail -n1)
+          if [ -z "$ip" ]; then
+          echo "❌ Failed to resolve 14monarch.tplinkdns.com"
+          exit 1
+          fi
+          echo "✅ Resolved 14monarch.tplinkdns.com to $ip"
+          sudo sed -i "s|14monarch.tplinkdns.com|$ip|" wg0.conf
+          echo "🔧 Updated wg0.conf to use $ip instead of DDNS"
+      - name: Bring up VPN
+        run: |
+          sudo wg-quick up ./wg0.conf
+          sudo wg show
+      - name: Create Atlas User
+        run: |
+              sudo docker exec -i mysql \
+              mysql --host="${{ vars.PI_HOST_IP }}" --user="${{ secrets.PORTAINER_USER }}" --password="${{ secrets.PI_PASSWORD }}"  -e " \
+              CREATE USER IF NOT EXISTS '${{ vars.ATLAS_USER }}'@'%' IDENTIFIED BY '${{ secrets.ATLAS_PASSWORD }}'; \
+              GRANT ALL PRIVILEGES ON *.* TO '${{ vars.ATLAS_USER }}'@'%' with grant option; \
+              FLUSH PRIVILEGES;"
+
+      - name: Install Atlas
+        uses: ariga/setup-atlas@v0
+        with:
+          version: latest
+
+      - name: Set environment variables
+        run: |
+          # Derive branch name (replace slashes for DB compatibility)
+          BRANCH=$(echo "${GITHUB_REF_NAME}" | tr '/' '_')
+          echo "BRANCH=$BRANCH" >> $GITHUB_ENV
+
+          # Decide DB name based on branch
+          if [ "$BRANCH" = "main" ]; then
+            echo "DB_NAME=Sanctuary" >> $GITHUB_ENV
+          else
+            echo "DB_NAME=Sanctuary_${BRANCH}" >> $GITHUB_ENV
+          fi
+
+      - name: Apply schema with Atlas
+        run: |
+          atlas schema apply \
+            -u "mysql://${{ vars.ATLAS_USER }}:${{ secrets.ATLAS_PASSWORD }}@tcp(${{ vars.PI_hOST_IP }}:3306)/Sanctuary" \
+            --to "file://sql" \
+            --auto-approve \
+            --dev-url "docker://mysql/8.0"
