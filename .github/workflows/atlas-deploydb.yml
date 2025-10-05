@@ -34,7 +34,6 @@ jobs:
           sudo wg show
       - name: Create Atlas User
         run: |
-              sudo docker exec -i mysql \
               mysql --host="${{ vars.PI_HOST_IP }}" --user="${{ secrets.PORTAINER_USER }}" --password="${{ secrets.PI_PASSWORD }}"  -e " \
               CREATE USER IF NOT EXISTS '${{ vars.ATLAS_USER }}'@'%' IDENTIFIED BY '${{ secrets.ATLAS_PASSWORD }}'; \
               GRANT ALL PRIVILEGES ON *.* TO '${{ vars.ATLAS_USER }}'@'%' with grant option; \
