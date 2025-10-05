@@ -34,17 +34,17 @@ jobs:
           sudo wg show
       - name: Create Atlas User
         run: |
-          mysql --host="${{ vars.PI_HOST_IP }}:3306" \
+          mysql --host="${{ vars.PI_HOST_IP }}" \
                 --user="${{ secrets.PORTAINER_USER }}" \
                 --password="${{ secrets.PI_PASSWORD }}" \
                 -e "CREATE USER IF NOT EXISTS '${{ vars.ATLAS_USER }}'@'%' IDENTIFIED BY '${{ secrets.ATLAS_PASSWORD }}';"
       
-          mysql --host="${{ vars.PI_HOST_IP }}:3306" \
+          mysql --host="${{ vars.PI_HOST_IP }}" \
                 --user="${{ secrets.PORTAINER_USER }}" \
                 --password="${{ secrets.PI_PASSWORD }}" \
                 -e "GRANT ALL PRIVILEGES ON *.* TO '${{ vars.ATLAS_USER }}'@'%' WITH GRANT OPTION;"
       
-          mysql --host="${{ vars.PI_HOST_IP }}:3306" \
+          mysql --host="${{ vars.PI_HOST_IP }}" \
                 --user="${{ secrets.PORTAINER_USER }}" \
                 --password="${{ secrets.PI_PASSWORD }}" \
                 -e "FLUSH PRIVILEGES;" 
