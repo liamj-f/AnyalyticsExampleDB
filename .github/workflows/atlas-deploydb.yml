@@ -73,7 +73,7 @@ jobs:
           ENCODED_PASS=$(python3 -c "import urllib.parse, os; print(urllib.parse.quote(os.environ['ATLAS_PASSWORD']))")
           
           # Build the final connection string with the encoded password
-          export ATLAS_DATABASE_URL="mysql://${ATLAS_USER}:${ENCODED_PASS}@tcp(${PI_HOST_IP}:3306)/Sanctuary"
+          export ATLAS_DATABASE_URL="mysql://${ATLAS_USER}:${ENCODED_PASS}@${PI_HOST_IP}:3306/Sanctuary"
       
           # (Optional) print masked version for debugging
           echo "Using ATLAS_DATABASE_URL with user: $ATLAS_USER at host: ${PI_HOST_IP}"
