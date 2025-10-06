@@ -68,9 +68,10 @@ jobs:
           ATLAS_USER: ${{ vars.ATLAS_USER }}
           ATLAS_PASSWORD: ${{ secrets.ATLAS_PASSWORD }}
           PI_HOST_IP: ${{ vars.PI_HOST_IP }}
+          ENCODED_PASS: $(python3 -c "import urllib.parse, os; print(urllib.parse.quote(os.environ['${{ secrets.ATLAS_PASSWORD }}']))")
         run: |
           # Build URL safely in bash, with password quoted properly
-          export ATLAS_DATABASE_URL="mysql://${ATLAS_USER}:${ATLAS_PASSWORD}@tcp(${PI_HOST_IP}:3306)/Sanctuary"
+          export ATLAS_DATABASE_URL="mysql://${ATLAS_USER}:${ENCODED_PASS}@tcp(${PI_HOST_IP}:3306)/Sanctuary"
           atlas schema apply \
             --to "file://Sanctuary" \
             --url "$ATLAS_DATABASE_URL" \
