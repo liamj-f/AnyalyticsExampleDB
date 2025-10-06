@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+      - name: List Sanctuary folder
+        run: ls -R Sanctuary
+
       - name: Install WireGuard
         run: |
           sudo apt-get update
