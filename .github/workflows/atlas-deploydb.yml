@@ -64,8 +64,15 @@ jobs:
           fi
           
       - name: Run Atlas schema apply
+        env:
+          ATLAS_USER: ${{ vars.ATLAS_USER }}
+          ATLAS_PASSWORD: ${{ secrets.ATLAS_PASSWORD }}
+          PI_HOST_IP: ${{ vars.PI_HOST_IP }}
         run: |
+          # Build URL safely in bash, with password quoted properly
+          export ATLAS_DATABASE_URL="mysql://${ATLAS_USER}:${ATLAS_PASSWORD}@tcp(${PI_HOST_IP}:3306)/Sanctuary"
           atlas schema apply \
             --to "file://Sanctuary" \
-            --url "mysql://${{ vars.ATLAS_USER }}:${{ secrets.ATLAS_PASSWORD }}@tcp(${{ vars.PI_HOST_IP }}:3306)/Sanctuary" \
+            --url "$ATLAS_DATABASE_URL" \
             --auto-approve
+      
