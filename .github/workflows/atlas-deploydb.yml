@@ -53,7 +53,7 @@ jobs:
       - name: Test MySQL connection manually
         run: |
           mysql --host="${{ vars.PI_HOST_IP }}" \
-                --user="${{ secrets.ATLAS_USER }}" \
+                --user="${{ vars.ATLAS_USER }}" \
                 --password='${{ secrets.ATLAS_PASSWORD }}' \
                 -e "select current_user();"                    
 
