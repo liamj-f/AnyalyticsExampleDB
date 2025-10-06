@@ -29,6 +29,15 @@ jobs:
           echo "✅ Resolved 14monarch.tplinkdns.com to $ip"
           sudo sed -i "s|14monarch.tplinkdns.com|$ip|" wg0.conf
           echo "🔧 Updated wg0.conf to use $ip instead of DDNS"
+
+      - name: Install Atlas CLI
+        run: |
+          curl -sSf https://atlasgo.sh | sh
+          echo "$HOME/bin" >> $GITHUB_PATH
+
+      - name: Check Atlas version
+        run: atlas version
+              
       - name: Bring up VPN
         run: |
           sudo wg-quick up ./wg0.conf
@@ -41,15 +50,7 @@ jobs:
                 -e "CREATE USER IF NOT EXISTS '${{ vars.ATLAS_USER }}'@'%' IDENTIFIED BY '${{ secrets.ATLAS_PASSWORD }}'; 
                     GRANT ALL PRIVILEGES ON *.* TO '${{ vars.ATLAS_USER }}'@'%' WITH GRANT OPTION;
                     FLUSH PRIVILEGES;"
-
-      - name: Install Atlas CLI
-        run: |
-          curl -sSf https://atlasgo.sh | sh
-          echo "$HOME/bin" >> $GITHUB_PATH
-
-      - name: Check Atlas version
-        run: atlas version
-        
+                    
       - name: Set environment variables
         run: |
           # Derive branch name (replace slashes for DB compatibility)
