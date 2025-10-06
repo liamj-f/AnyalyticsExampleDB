@@ -81,5 +81,6 @@ jobs:
           atlas schema apply \
             --to "file://Sanctuary" \
             --url "mysql://${ATLAS_USER}:${ATLAS_PASSWORD}@${PI_HOST_IP}:3306/Sanctuary" \
-            --auto-approve
+            --dir-recursive \
+            --auto-approve 
 
