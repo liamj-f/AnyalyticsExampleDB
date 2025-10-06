@@ -54,8 +54,8 @@ jobs:
         run: |
           mysql --host="${{ vars.PI_HOST_IP }}" \
                 --user="${{ secrets.ATLAS_USER }}" \
-                --password="${{ secrets.ATLAS_PASSWORD }}" \
-                -e "select current_user();;"                    
+                --password='${{ secrets.ATLAS_PASSWORD }}' \
+                -e "select current_user();"                    
 
       - name: Set environment variables
         run: |
