@@ -42,10 +42,10 @@ jobs:
                     GRANT ALL PRIVILEGES ON *.* TO '${{ vars.ATLAS_USER }}'@'%' WITH GRANT OPTION;
                     FLUSH PRIVILEGES;"
 
-      - name: Set up Atlas
-        uses: ariga/setup-atlas-action@v0
-        with:
-          version: latest
+      - name: Install Atlas CLI
+        run: |
+          curl -sSf https://atlasgo.sh | sh
+          echo "$HOME/bin" >> $GITHUB_PATH
 
       - name: Check Atlas version
         run: atlas version
