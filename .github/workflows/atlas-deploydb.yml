@@ -46,7 +46,8 @@ jobs:
           mysql --host="${{ vars.PI_HOST_IP }}" \
                 --user="${{ secrets.PORTAINER_USER }}" \
                 --password="${{ secrets.PI_PASSWORD }}" \
-                -e "CREATE USER IF NOT EXISTS '${{ vars.ATLAS_USER }}'@'%' IDENTIFIED BY '${{ secrets.ATLAS_PASSWORD }}'; 
+                -e "DROP USER IF EXISTS '${{ vars.ATLAS_USER }}'@'%';
+                    CREATE USER IF NOT EXISTS '${{ vars.ATLAS_USER }}'@'%' IDENTIFIED WITH mysql_native_password BY '${{ secrets.ATLAS_PASSWORD }}'; 
                     GRANT ALL PRIVILEGES ON *.* TO '${{ vars.ATLAS_USER }}'@'%' WITH GRANT OPTION;
                     FLUSH PRIVILEGES;"
                     
