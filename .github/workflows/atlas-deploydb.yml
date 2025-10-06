@@ -50,6 +50,13 @@ jobs:
                     GRANT ALL PRIVILEGES ON *.* TO '${{ vars.ATLAS_USER }}'@'%' WITH GRANT OPTION;
                     FLUSH PRIVILEGES;"
                     
+      - name: Test MySQL connection manually
+        run: |
+          mysql --host="${{ vars.PI_HOST_IP }}" \
+                --user="${{ secrets.ATLAS_USER }}" \
+                --password="${{ secrets.ATLAS_PASSWORD }}" \
+                -e "select current_user();;"                    
+
       - name: Set environment variables
         run: |
           # Derive branch name (replace slashes for DB compatibility)
