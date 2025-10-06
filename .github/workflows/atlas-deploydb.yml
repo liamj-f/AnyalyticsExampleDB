@@ -42,11 +42,12 @@ jobs:
                     GRANT ALL PRIVILEGES ON *.* TO '${{ vars.ATLAS_USER }}'@'%' WITH GRANT OPTION;
                     FLUSH PRIVILEGES;"
 
-      - name: Install Atlas
-        run: |
-              curl -sL https://github.com/ariga/atlas/releases/latest/download/atlas-linux-amd64 -o /usr/local/bin/atlas
-              chmod +x /usr/local/bin/atlas
+      - name: Install Atlas CLI
+        run: curl -sSf https://atlasgo.sh | sh
 
+      - name: Check Atlas version
+        run: ./atlas version
+        
       - name: Set environment variables
         run: |
           # Derive branch name (replace slashes for DB compatibility)
@@ -64,6 +65,6 @@ jobs:
         run: |
           atlas schema apply \
             -u "mysql://${{ vars.ATLAS_USER }}:${{ secrets.ATLAS_PASSWORD }}@tcp(${{ vars.PI_hOST_IP }}:3306)/Sanctuary" \
-            --to "file://sql" \
+            --to "file://Sanctuary" \
             --auto-approve \
             --dev-url "docker://mysql/8.0"
