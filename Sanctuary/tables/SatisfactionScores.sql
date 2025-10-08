@@ -3,7 +3,7 @@ create table SatisafactionScores
   Score tinyint not null,
   ScoreDateTime datetime not null,
   PropertyId int not null,
-  PRIMARY KEY (`SatisfactionScoreId`)
+  PRIMARY KEY (`SatisfactionScoreId`),
   Constraint `FK_PropertySatisfactionScore` FOREIGN KEY (`PropertyId`) REFERENCES `Properties` (`PropertyId`) ON DELETE RESTRICT
   )
   
