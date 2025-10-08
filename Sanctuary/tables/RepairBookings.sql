@@ -1,5 +1,5 @@
 create table RepairBookings
-(RepairId int not null,
+(RepairId int not null AUTO_INCREMENT,
 PropertyId int not null,
 LoggedDateTime datetime not null,
 CompletedDateTime datetime,
