@@ -1,0 +1,88 @@
+name: MySQL Sanctuary Schema Sync
+
+on:
+  push:
+    branches:
+      - "**"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: List Sanctuary folder
+        run: ls -R Sanctuary
+
+      - name: Install WireGuard
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wireguard resolvconf dnsutils mysql-client
+      - name: Write WireGuard config
+        run: |
+          echo "${{ secrets.WG_CONFIG }}" > wg0.conf
+      - name: Resolve DDNS and update wg0.conf
+        run: |
+          ip=$(dig +short 14monarch.tplinkdns.com @8.8.8.8 | tail -n1)
+          if [ -z "$ip" ]; then
+          echo "❌ Failed to resolve 14monarch.tplinkdns.com"
+          exit 1
+          fi
+          echo "✅ Resolved 14monarch.tplinkdns.com to $ip"
+          sudo sed -i "s|14monarch.tplinkdns.com|$ip|" wg0.conf
+          echo "🔧 Updated wg0.conf to use $ip instead of DDNS"
+
+      - name: Install Atlas CLI
+        run: |
+          curl -sSf https://atlasgo.sh | sh
+
+      - name: Check Atlas version
+        run: atlas version
+              
+      - name: Bring up VPN
+        run: |
+          sudo wg-quick up ./wg0.conf
+          sudo wg show
+      - name: Create Atlas User
+        run: |
+          mysql --host="${{ vars.PI_HOST_IP }}" \
+                --user="${{ secrets.PORTAINER_USER }}" \
+                --password="${{ secrets.PI_PASSWORD }}" \
+                -e "DROP USER IF EXISTS '${{ vars.ATLAS_USER }}'@'%';
+                    CREATE USER IF NOT EXISTS '${{ vars.ATLAS_USER }}'@'%' IDENTIFIED WITH mysql_native_password BY '${{ secrets.ATLAS_PASSWORD }}'; 
+                    GRANT ALL PRIVILEGES ON *.* TO '${{ vars.ATLAS_USER }}'@'%' WITH GRANT OPTION;
+                    FLUSH PRIVILEGES;"
+                    
+      - name: Test MySQL connection manually
+        run: |
+          mysql --host="${{ vars.PI_HOST_IP }}" \
+                --user="${{ vars.ATLAS_USER }}" \
+                --password='${{ secrets.ATLAS_PASSWORD }}' \
+                -e "select current_user();"                    
+
+      - name: Set environment variables
+        run: |
+          # Derive branch name (replace slashes for DB compatibility)
+          BRANCH=$(echo "${GITHUB_REF_NAME}" | tr '/' '_')
+          echo "BRANCH=$BRANCH" >> $GITHUB_ENV
+
+          # Decide DB name based on branch
+          if [ "$BRANCH" = "main" ]; then
+            echo "DB_NAME=Sanctuary" >> $GITHUB_ENV
+          else
+            echo "DB_NAME=Sanctuary_${BRANCH}" >> $GITHUB_ENV
+          fi
+
+      - name: Run Atlas schema apply
+        env:
+          ATLAS_USER: ${{ vars.ATLAS_USER }}
+          ATLAS_PASSWORD: ${{ secrets.ATLAS_PASSWORD }}
+          PI_HOST_IP: ${{ vars.PI_HOST_IP }}
+        run: |     
+          # Apply the schema
+          atlas schema apply \
+            --to "file://Sanctuary/all.sql" \
+            --url "mysql://${ATLAS_USER}:${ATLAS_PASSWORD}@${PI_HOST_IP}:3306/Sanctuary" \
+            --auto-approve 
+
