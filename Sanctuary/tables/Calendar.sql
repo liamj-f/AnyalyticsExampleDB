@@ -1,14 +1,4 @@
-create table Calendar 
-(
-`Date` date primary key,
-`DayName` NVARCHAR(20),
-`DayOfWeek` INT,
-`WeekOfYear` INT,
-`MonthName` NVARCHAR(20),
-`Month` INT,
-`Year` INT,
-`IsWeekend` BIT
-);
+
 create table Calendar 
 (
 `Date` date primary key,
