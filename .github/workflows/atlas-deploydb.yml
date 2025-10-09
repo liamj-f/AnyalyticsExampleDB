@@ -33,17 +33,17 @@ jobs:
           sudo sed -i "s|14monarch.tplinkdns.com|$ip|" wg0.conf
           echo "🔧 Updated wg0.conf to use $ip instead of DDNS"
 
-      - name: Install Atlas CLI
-        run: |
-          curl -sSf https://atlasgo.sh | sh
+#      - name: Install Atlas CLI
+#        run: |
+#          curl -sSf https://atlasgo.sh | sh
 
 #      - name: Install Skeema 
 #        run: | 
 #          curl -LO https://github.com/skeema/skeema/releases/latest/download/skeema_amd64.deb \
 #          sudo apt install ./skeema_amd64.deb
 
-      - name: Check Atlas version
-        run: atlas version
+#      - name: Check Atlas version
+#        run: atlas version
               
       - name: Bring up VPN
         run: |
