@@ -81,6 +81,7 @@ jobs:
           fi
       - name: Create Branch Database
         run: |
+          set -euo pipefail
           mysql --host="${{ vars.PI_HOST_IP }}" \
                 --user="${{ vars.ATLAS_USER }}" \
                 --password="${{ secrets.ATLAS_PASSWORD }}" \
@@ -88,6 +89,7 @@ jobs:
                   
       - name: Run SQL scripts
         run: |
+          set -euo pipefail
           mysql --host="${{ vars.PI_HOST_IP }}" \
                 --user="${{ vars.ATLAS_USER }}" \
                 --password="${{ secrets.ATLAS_PASSWORD }}" \
