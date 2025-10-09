@@ -83,7 +83,7 @@ jobs:
       - name: Run SQL scripts
         run: |
           mysql --host="${{ vars.PI_HOST_IP }}" \
-                --user="${{ secrets.ATLAS_USER }}" \
+                --user="${{ vars.ATLAS_USER }}" \
                 --password="${{ secrets.ATLAS_PASSWORD }}" \
                   $DB_NAME < Sanctuary/schema.sql
 #          mysql -h $MYSQL_HOST -u $MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DB < ./sql/data.sql
