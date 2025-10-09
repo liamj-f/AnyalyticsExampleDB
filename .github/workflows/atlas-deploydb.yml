@@ -37,10 +37,10 @@ jobs:
         run: |
           curl -sSf https://atlasgo.sh | sh
 
-      - name: Install Skeema 
-        run: | 
-          curl -LO https://github.com/skeema/skeema/releases/latest/download/skeema_amd64.deb \
-          sudo apt install ./skeema_amd64.deb
+#      - name: Install Skeema 
+#        run: | 
+#          curl -LO https://github.com/skeema/skeema/releases/latest/download/skeema_amd64.deb \
+#          sudo apt install ./skeema_amd64.deb
 
       - name: Check Atlas version
         run: atlas version
