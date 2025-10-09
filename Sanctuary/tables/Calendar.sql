@@ -1,18 +1,21 @@
 
-create table Calendar 
+create table if not exists Calendar 
 (
 `Date` date primary key,
-`DayName` NVARCHAR(20),
-`DayOfWeek` INT,
-`WeekOfYear` INT,
-`MonthName` NVARCHAR(20),
-`Month` INT,
-`Year` INT,
-`IsWeekend` BIT
 );
+
+ALTER TABLE Calendar
+ADD COLUMN IF NOT EXISTS `DayName` NVARCHAR(20),
+ADD COLUMN IF NOT EXISTS `DayOfWeek` INT,
+ADD COLUMN IF NOT EXISTS `WeekOfYear` INT,
+ADD COLUMN IF NOT EXISTS `MonthName` NVARCHAR(20),
+ADD COLUMN IF NOT EXISTS `Month` INT,
+ADD COLUMN IF NOT EXISTS `Year` INT,
+ADD COLUMN IF NOT EXISTS `IsWeekend` BIT;
+
 DELIMITER //
 
-CREATE PROCEDURE FillCalendar()
+CREATE PROCEDURE IF NOT EXISTS FillCalendar()
 BEGIN
     DECLARE StartDate DATE;
     DECLARE EndDate DATE;
@@ -41,6 +44,9 @@ BEGIN
 END;
 //
 
-DELIMITER ;
-
-CALL FillCalendar();
+if select count(*) from Calendar = 0 
+    then CALL FillCalendar();
+    else null
+    end if;
+//
+delimiter ;
