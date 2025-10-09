@@ -79,7 +79,13 @@ jobs:
           else
             echo "DB_NAME=Sanctuary_${BRANCH}" >> $GITHUB_ENV
           fi
-
+      - name: Create Branch Database
+        run: |
+          mysql --host="${{ vars.PI_HOST_IP }}" \
+                --user="${{ vars.ATLAS_USER }}" \
+                --password="${{ secrets.ATLAS_PASSWORD }}" \
+                -e ""CREATE DATABASE IF NOT EXISTS \`${DB_NAME}\` CHARACTER SET latin1 COLLATE latin1_general_ci;"
+                  
       - name: Run SQL scripts
         run: |
           mysql --host="${{ vars.PI_HOST_IP }}" \
