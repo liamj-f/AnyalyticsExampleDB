@@ -1,13 +1,13 @@
-SOURCE tables/Calendar.sql;
-SOURCE tables/Regions.sql;
-SOURCE tables/Properties.sql;
-SOURCE tables/PropertyStaff.sql;
-SOURCE tables/PropertyTypes.sql;
-
-SOURCE tables/RepairCategories.sql;
-SOURCE tables/RepairBookings.sql;
-SOURCE tables/SatisfactionScores.sql;
-SOURCE tables/StaffShifts.sql;
-
-SOURCE views/AvgShiftSatisafaction.sql;
-SOURCE views/StaffNumberSatisfaction.sql;
+SOURCE Sanctuary/tables/Calendar.sql;
+SOURCE Sanctuary/tables/Regions.sql;
+SOURCE Sanctuary/tables/Properties.sql;
+SOURCE Sanctuary/tables/PropertyStaff.sql;
+SOURCE Sanctuary/tables/PropertyTypes.sql;
+	   
+SOURCE Sanctuary/tables/RepairCategories.sql;
+SOURCE Sanctuary/tables/RepairBookings.sql;
+SOURCE Sanctuary/tables/SatisfactionScores.sql;
+SOURCE Sanctuary/tables/StaffShifts.sql;
+	   
+SOURCE Sanctuary/views/AvgShiftSatisafaction.sql;
+SOURCE Sanctuary/views/StaffNumberSatisfaction.sql;
