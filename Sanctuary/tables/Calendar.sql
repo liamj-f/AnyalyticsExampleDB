@@ -1,7 +1,7 @@
 
 create table if not exists Calendar 
 (
-`Date` date primary key,
+`Date` date primary key
 );
 
 ALTER TABLE Calendar
