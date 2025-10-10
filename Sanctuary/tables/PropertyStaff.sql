@@ -1,8 +1,10 @@
-CREATE TABLE `PropertyStaff` (
+CREATE TABLE IF NOT EXISTS `PropertyStaff` (
   `StaffId` int NOT NULL AUTO_INCREMENT,
-  `PropertyId` int NOT NULL,
-  `StartDate` date NOT NULL,
-  `EndDate` date DEFAULT NULL,
-  PRIMARY KEY (`StaffId`),
-  CONSTRAINT `FK_PropertyStaff` FOREIGN KEY (`PropertyId`) REFERENCES `Properties` (`PropertyId`) ON DELETE RESTRICT
-) 
+  PRIMARY KEY (`StaffId`)
+) ;
+
+CALL AddColumnIfNotExists ('PropertyStaff','PropertyId','INT NOT NULL');
+CALL AddColumnIfNotExists ('PropertyStaff','StartDate','date NOT NULL');
+CALL AddColumnIfNotExists ('PropertyStaff','EndDate', 'date default NULL');
+
+CALL AddForeignKeyIfNotExists ('PropertyStaff', 'FK_PropertyStaff', 'PropertyId', 'Properties', 'PropertyId');

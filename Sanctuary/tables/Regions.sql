@@ -1,13 +1,14 @@
-CREATE TABLE `regions` (
+CREATE TABLE IF NOT EXISTS `Regions` (
   `RegionId` int NOT NULL AUTO_INCREMENT,
-  `NUTS1_Region` varchar(50) DEFAULT NULL,
-  `Population` int DEFAULT NULL,
-  `Pop%` float DEFAULT NULL,
-  `Flag` bit(1) DEFAULT NULL,
-  PRIMARY KEY (`RegionId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+    PRIMARY KEY (`RegionId`)
+);
 
-INSERT INTO `regions` (`RegionId`, `NUTS1_Region`, `Population`, `Pop%`, `Flag`) VALUES
+CALL AddColumnIfNotExists ('Regions','NUTS1_Region','varchar(50) DEFAULT NULL');
+CALL AddColumnIfNotExists ('Regions','Population', 'int DEFAULT NULL');
+CALL AddColumnIfNotExists ('Regions','Pop%', 'float DEFAULT NULL');
+CALL AddColumnIfNotExists ('Regions','Flag', 'BIT DEFAULT NULL');
+
+INSERT IGNORE INTO `Regions` (`RegionId`, `NUTS1_Region`, `Population`, `Pop%`, `Flag`) VALUES
 (1,	'England, East Midlands',	4835928,	7.24,	CONVERT(b'1', UNSIGNED)),
 (2,	'England, East of England',	6236072,	9.34,	CONVERT(b'1', UNSIGNED)),
 (3,	'England, Greater London',	8961989,	13.42,	CONVERT(b'0', UNSIGNED)),

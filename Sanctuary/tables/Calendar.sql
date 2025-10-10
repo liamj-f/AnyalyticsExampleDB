@@ -1,15 +1,19 @@
 
-create table Calendar 
+create table if not exists Calendar 
 (
-`Date` date primary key,
-`DayName` NVARCHAR(20),
-`DayOfWeek` INT,
-`WeekOfYear` INT,
-`MonthName` NVARCHAR(20),
-`Month` INT,
-`Year` INT,
-`IsWeekend` BIT
+`Date` date primary key
 );
+
+CALL AddColumnIfNotExists ('Calendar', 'DayName', 'VARCHAR(20) not null');
+CALL AddColumnIfNotExists ('Calendar','DayOfWeek','INT NOT NULL');
+CALL AddColumnIfNotExists ('Calendar','WeekOfYear','INT NOT NULL');
+CALL AddColumnIfNotExists ('Calendar','MonthName', 'VARCHAR(20) NOT NULL');
+CALL AddColumnIfNotExists ('Calendar','Month', 'INT NOT NULL');
+CALL AddColumnIfNotExists ('Calendar','Year', 'INT NOT NULL');
+CALL AddColumnIfNotExists ('Calendar','IsWeekend','BIT NOT NULL');
+
+DROP PROCEDURE IF EXISTS FillCalendar;
+
 DELIMITER //
 
 CREATE PROCEDURE FillCalendar()
@@ -23,7 +27,8 @@ BEGIN
     SET LoopDate = StartDate;
 
     WHILE LoopDate <= EndDate DO
-        INSERT INTO `Calendar`
+        -- INSERT IGNORE ensures idempotency
+        INSERT IGNORE INTO Calendar
             (`Date`, `DayName`, `DayOfWeek`, `WeekOfYear`, `MonthName`, `Month`, `Year`, `IsWeekend`)
         VALUES (
             LoopDate,

@@ -1,4 +1,4 @@
-CREATE OR REPLACE VIEW AvgShiftSatisfactionView AS
+CREATE OR REPLACE VIEW `AvgShiftSatisfactionView` AS
 SELECT
     c.Month,
     c.MonthName,
@@ -59,4 +59,4 @@ SELECT
         ),
     2) AS AvgSatisfactionScore
 FROM Calendar c
-INNER JOIN regions r ON 1=1;
+INNER JOIN Regions r ON 1=1;

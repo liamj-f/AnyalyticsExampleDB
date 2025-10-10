@@ -1,11 +1,11 @@
-CREATE TABLE `Properties` (
+CREATE TABLE If not exists `Properties` (
   `PropertyId` int NOT NULL AUTO_INCREMENT,
-  `PropertyTypeId` int NOT NULL,
-  `PropertyName` varchar(50) NOT NULL,
-  `RegionId` int NOT NULL,
-  PRIMARY KEY (`PropertyId`),
-  CONSTRAINT `FK_PropertyTypes` FOREIGN KEY (`PropertyTypeId`) REFERENCES `PropertyTypes` (`PropertyTypeId`) ON DELETE RESTRICT,
-  CONSTRAINT `FK_PropertyRegion` FOREIGN KEY (`RegionId`) REFERENCES `Regions` (`RegionId`) ON DELETE RESTRICT,
-  CONSTRAINT `FK_PropertyType` FOREIGN KEY (`PropertyTypeId`) REFERENCES `PropertyTypes` (`PropertyTypeId`) ON DELETE RESTRICT
-) 
+  PRIMARY KEY (`PropertyId`)
+) ;
 
+CALL AddColumnIfNotExists ('Properties','PropertyTypeId','INT NOT NULL');
+CALL AddColumnIfNotExists ('Properties','PropertyName','varchar(50) NOT NULL');
+CALL AddColumnIfNotExists ('Properties','RegionId', 'int NOT NULL');
+
+CALL AddForeignKeyIfNotExists ('Properties', 'FK_PropertyTypes', 'PropertyTypeId', 'PropertyTypes', 'PropertyTypeId');
+CALL AddForeignKeyIfNotExists ('Properties', 'FK_PropertyRegion', 'RegionId', 'Regions', 'RegionId');

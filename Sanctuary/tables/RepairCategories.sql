@@ -1,12 +1,13 @@
 
-CREATE TABLE `RepairCategory` (
+CREATE TABLE IF NOT EXISTS `RepairCategories` (
   `RepairCategoryId` int NOT NULL AUTO_INCREMENT,
-  `ReapirCategoryName` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
-  `RepairSubCategoryName` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`RepairCategoryId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_danish_ci;
+);
 
-INSERT INTO `RepairCategory` (`RepairCategoryId`, `ReapirCategoryName`, `RepairSubCategoryName`) VALUES
+CALL AddColumnIfNotExists('RepairCategories','ReapirCategoryName','varchar(50) NOT NULL');
+CALL AddColumnIfNotExists('RepairCategories','RepairSubCategoryName','varchar(50) NOT NULL');
+
+INSERT IGNORE INTO `RepairCategories` (`RepairCategoryId`, `ReapirCategoryName`, `RepairSubCategoryName`) VALUES
 (1,	'Plumbing & Water',	'Leaks (pipes, taps, showers)'),
 (2,	'Plumbing & Water',	'Blocked drains/sinks'),
 (3,	'Plumbing & Water',	'Toilet repairs'),
