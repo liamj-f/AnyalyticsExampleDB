@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `Regions` (
 CALL AddColumnIfNotExists ('Regions','NUTS1_Region','varchar(50) DEFAULT NULL');
 CALL AddColumnIfNotExists ('Regions','Population', 'int DEFAULT NULL');
 CALL AddColumnIfNotExists ('Regions','Pop%', 'float DEFAULT NULL');
-CALL AddColumnIfNotExists ('Regions','Flag', 'bit(1) DEFAULT NULL');
+CALL AddColumnIfNotExists ('Regions','Flag', 'BIT DEFAULT NULL');
 
 INSERT IGNORE INTO `Regions` (`RegionId`, `NUTS1_Region`, `Population`, `Pop%`, `Flag`) VALUES
 (1,	'England, East Midlands',	4835928,	7.24,	CONVERT(b'1', UNSIGNED)),
