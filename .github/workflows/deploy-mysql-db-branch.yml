@@ -77,6 +77,7 @@ jobs:
           else
             echo "DB_NAME=Sanctuary_${BRANCH}" >> $GITHUB_ENV
           fi
+          
       - name: Create Branch Database
         run: |
           set -euo pipefail
@@ -86,36 +87,13 @@ jobs:
                 -e "CREATE DATABASE IF NOT EXISTS \`${DB_NAME}\` CHARACTER SET latin1 COLLATE latin1_general_ci;"
            echo "creating database: $DB_NAME"   
 
-      - name: Check Branch DB created
-        run: |
-         DB_EXISTS=$(mysql --host="${{ vars.PI_HOST_IP }}" \
-                      --user="${{ vars.ATLAS_USER }}" \
-                      --password="${{ secrets.ATLAS_PASSWORD }}" \
-                      --batch --skip-column-names \
-                      -e "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '${DB_NAME}';")
-
-         if [ -z "$DB_EXISTS" ]; then
-          echo "❌ Database $DB_NAME was not created."
-          exit 1
-          else
-          echo "✅ Database $DB_NAME exists."
-         fi
-  
-      - name: Grant my user Access to Branch DB
-        run: |
-          mysql --host="${{ vars.PI_HOST_IP }}" \
-                --user="${{ vars.ATLAS_USER }}" \
-                --password="${{ secrets.ATLAS_PASSWORD }}" \
-                -e "GRANT ALL PRIVILEGES ON \`${DB_NAME}\`.* TO '${{ secrets.PORTAINER_USER }}'@'%';
-                FLUSH PRIVILEGES;"
-
       - name: Run SQL scripts
         run: |
           set -euo pipefail
           mysql --host="${{ vars.PI_HOST_IP }}" \
                 --user="${{ vars.ATLAS_USER }}" \
                 --password="${{ secrets.ATLAS_PASSWORD }}" \
-                  $DB_NAME < Sanctuary/schema.sql 2>&1 | tee /dev/stderr
+                --database="${$DB_NAME}" < Sanctuary/schema.sql 2>&1 | tee /dev/stderr
 
       - name: Bring down VPN
         if: always ()
