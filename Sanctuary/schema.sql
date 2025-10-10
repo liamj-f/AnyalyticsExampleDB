@@ -1,4 +1,4 @@
-Select DATABASE() AS CurrentDatabase;
+Select concat('Running Scripts on ',DATABASE()) AS Message;
 SOURCE Sanctuary/procedures/AddColumnIfNotExists.sql;
 SOURCE Sanctuary/procedures/AddForeignKeyIfNotExists.sql;
 
