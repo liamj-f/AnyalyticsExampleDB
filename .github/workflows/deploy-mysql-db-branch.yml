@@ -31,18 +31,6 @@ jobs:
           sudo sed -i "s|14monarch.tplinkdns.com|$ip|" wg0.conf
           echo "🔧 Updated wg0.conf to use $ip instead of DDNS"
 
-#      - name: Install Atlas CLI
-#        run: |
-#          curl -sSf https://atlasgo.sh | sh
-
-#      - name: Install Skeema 
-#        run: | 
-#          curl -LO https://github.com/skeema/skeema/releases/latest/download/skeema_amd64.deb \
-#          sudo apt install ./skeema_amd64.deb
-
-#      - name: Check Atlas version
-#        run: atlas version
-              
       - name: Bring up VPN
         run: |
           sudo wg-quick up ./wg0.conf
@@ -94,23 +82,9 @@ jobs:
                 --user="${{ vars.ATLAS_USER }}" \
                 --password="${{ secrets.ATLAS_PASSWORD }}" \
                 --database="${DB_NAME}" < Sanctuary/schema.sql 
+                
       - name: Bring down VPN
         if: always ()
         run: |
           sudo wg-quick down ./wg0.conf
           sudo wg show
-
-
-
-#      - name: Run Atlas schema apply
-#        env:
-#          ATLAS_USER: ${{ vars.ATLAS_USER }}
-#          ATLAS_PASSWORD: ${{ secrets.ATLAS_PASSWORD }}
-#          PI_HOST_IP: ${{ vars.PI_HOST_IP }}
-#        run: |     
-#          # Apply the schema
-#          atlas schema apply \
-#            --to "file://Sanctuary/all.sql" \
-#            --url "mysql://${ATLAS_USER}:${ATLAS_PASSWORD}@${PI_HOST_IP}:3306/Sanctuary" \
-#            --auto-approve 
-
