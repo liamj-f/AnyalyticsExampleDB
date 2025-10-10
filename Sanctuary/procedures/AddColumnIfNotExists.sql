@@ -1,5 +1,5 @@
 DELIMITER //
-
+DROP Procedure if exists AddColumnIfNotExists;
 CREATE PROCEDURE if not exists AddColumnIfNotExists(
     IN in_table_name VARCHAR(64),
     IN in_column_name VARCHAR(64),
