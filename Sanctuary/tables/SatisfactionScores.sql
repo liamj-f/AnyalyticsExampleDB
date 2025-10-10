@@ -1,10 +1,10 @@
-create table IF NOT EXISTS SatisafactionScores
+create table IF NOT EXISTS SatisfactionScores
 (SatisfactionScoreId int not null AUTO_INCREMENT,
   PRIMARY KEY (`SatisfactionScoreId`)
   );
 
-CALL AddColumnIfNotExists ('SatisafactionScores','Score', 'tinyint not null');
-CALL AddColumnIfNotExists ('SatisafactionScores','ScoreDateTime', 'datetime not null');
-CALL AddColumnIfNotExists ('SatisafactionScores','PropertyId','int not null');
+CALL AddColumnIfNotExists ('SatisfactionScores','Score', 'tinyint not null');
+CALL AddColumnIfNotExists ('SatisfactionScores','ScoreDateTime', 'datetime not null');
+CALL AddColumnIfNotExists ('SatisfactionScores','PropertyId','int not null');
 
-CALL AddForeignKeyIfNotExists ( 'SatisafactionScores','FK_PropertySatisfactionScore', 'PropertyId','Properties', 'PropertyId');
+CALL AddForeignKeyIfNotExists ( 'SatisfactionScores','FK_PropertySatisfactionScore', 'PropertyId','Properties', 'PropertyId');
