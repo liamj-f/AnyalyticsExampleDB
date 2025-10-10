@@ -22,7 +22,7 @@ BEGIN
             'ALTER TABLE ', table_name,
             ' ADD CONSTRAINT ', constraint_name,
             ' FOREIGN KEY (', column_name, ') REFERENCES ',
-            referenced_table, '(', referenced_column, ')'
+            referenced_table, '(', referenced_column, ') ON DELETE RESTRICT'
         );
 
         PREPARE stmt FROM @query;
