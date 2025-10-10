@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS `PropertyTypes` (
   PRIMARY KEY (`PropertyTypeId`)
 );
 
-CALL AddColumnIfNotExists('PropertyType','PropertyTypeName','varchar(50) NOT NULL');
+CALL AddColumnIfNotExists('PropertyTypes','PropertyTypeName','varchar(50) NOT NULL');
   
 INSERT IGNORE INTO `PropertyTypes` (`PropertyTypeId`, `PropertyTypeName`) VALUES
 (1,	'General Needs'),
