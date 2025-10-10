@@ -1,22 +1,23 @@
 DELIMITER //
 
 CREATE PROCEDURE IF NOT EXISTS AddForeignKeyIfNotExists(
-    IN table_name VARCHAR(64),
-    IN constraint_name VARCHAR(64),
-    IN column_name VARCHAR(64),
-    IN referenced_table VARCHAR(64),
-    IN referenced_column VARCHAR(64)
+    IN in_table_name VARCHAR(64),
+    IN in_constraint_name VARCHAR(64),
+    IN in_column_name VARCHAR(64),
+    IN in_referenced_table VARCHAR(64),
+    IN in_referenced_column VARCHAR(64)
 )
 BEGIN
     DECLARE constraint_exists INT DEFAULT 0;
 
-    SELECT COUNT(*)
-    INTO constraint_exists
+    set constraint_exists =
+    (SELECT COUNT(*)
+    
     FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS
     WHERE TABLE_SCHEMA = DATABASE()
-      AND TABLE_NAME = table_name
-      AND CONSTRAINT_NAME = constraint_name
-      AND CONSTRAINT_TYPE = 'FOREIGN KEY';
+      AND TABLE_NAME = in_table_name
+      AND CONSTRAINT_NAME = in_constraint_name
+      AND CONSTRAINT_TYPE = 'FOREIGN KEY');
 
     IF constraint_exists = 0 THEN
         -- Print message before adding the constraint
@@ -26,10 +27,10 @@ BEGIN
         ) AS Message;
 
         SET @query = CONCAT(
-            'ALTER TABLE ', table_name,
-            ' ADD CONSTRAINT ', constraint_name,
-            ' FOREIGN KEY (', column_name, ') REFERENCES ',
-            referenced_table, '(', referenced_column, ') ON DELETE RESTRICT'
+            'ALTER TABLE ', in_table_name,
+            ' ADD CONSTRAINT ', in_constraint_name,
+            ' FOREIGN KEY (', in_column_name, ') REFERENCES ',
+            in_referenced_table, '(', in_referenced_column, ') ON DELETE RESTRICT'
         );
 
         PREPARE stmt FROM @query;
