@@ -8,7 +8,7 @@ CALL AddColumnIfNotExists ('Regions','Population', 'int DEFAULT NULL');
 CALL AddColumnIfNotExists ('Regions','Pop%', 'float DEFAULT NULL');
 CALL AddColumnIfNotExists ('Regions','Flag', 'bit(1) DEFAULT NULL');
 
-INSERT IGNORE INTO `regions` (`RegionId`, `NUTS1_Region`, `Population`, `Pop%`, `Flag`) VALUES
+INSERT IGNORE INTO `Regions` (`RegionId`, `NUTS1_Region`, `Population`, `Pop%`, `Flag`) VALUES
 (1,	'England, East Midlands',	4835928,	7.24,	CONVERT(b'1', UNSIGNED)),
 (2,	'England, East of England',	6236072,	9.34,	CONVERT(b'1', UNSIGNED)),
 (3,	'England, Greater London',	8961989,	13.42,	CONVERT(b'0', UNSIGNED)),
