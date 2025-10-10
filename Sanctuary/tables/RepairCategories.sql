@@ -1,13 +1,13 @@
 
-CREATE TABLE IF NOT EXISTS `RepairCategory` (
+CREATE TABLE IF NOT EXISTS `RepairCategories` (
   `RepairCategoryId` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`RepairCategoryId`)
 );
 
-CALL AddColumnIfNotExists('RepairCategory','ReapirCategoryName','varchar(50) NOT NULL');
-CALL AddColumnIfNotExists('RepairCategory','RepairSubCategoryName','varchar(50) NOT NULL');
+CALL AddColumnIfNotExists('RepairCategories','ReapirCategoryName','varchar(50) NOT NULL');
+CALL AddColumnIfNotExists('RepairCategories','RepairSubCategoryName','varchar(50) NOT NULL');
 
-INSERT IGNORE INTO `RepairCategory` (`RepairCategoryId`, `ReapirCategoryName`, `RepairSubCategoryName`) VALUES
+INSERT IGNORE INTO `RepairCategories` (`RepairCategoryId`, `ReapirCategoryName`, `RepairSubCategoryName`) VALUES
 (1,	'Plumbing & Water',	'Leaks (pipes, taps, showers)'),
 (2,	'Plumbing & Water',	'Blocked drains/sinks'),
 (3,	'Plumbing & Water',	'Toilet repairs'),
