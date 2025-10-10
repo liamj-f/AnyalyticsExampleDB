@@ -1,3 +1,5 @@
+CREATE OR REPLACE VIEW `StaffNumberSatisfaction` AS
+
 WITH RECURSIVE months AS (
   -- Generate one row per month from the earliest date to now
   SELECT '2023-01-01' AS month_start
