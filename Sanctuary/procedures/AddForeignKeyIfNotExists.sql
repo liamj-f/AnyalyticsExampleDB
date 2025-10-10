@@ -1,6 +1,6 @@
 DELIMITER //
 
-CREATE PROCEDURE AddForeignKeyIfNotExists(
+CREATE PROCEDURE IF NOT EXISTS AddForeignKeyIfNotExists(
     IN table_name VARCHAR(64),
     IN constraint_name VARCHAR(64),
     IN column_name VARCHAR(64),
