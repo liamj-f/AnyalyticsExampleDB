@@ -1,11 +1,14 @@
-CREATE TABLE `Staff_Shifts` (
+CREATE TABLE IF NOT EXISTS `Staff_Shifts` (
   `ShiftId` int NOT NULL AUTO_INCREMENT,
-  `StaffId` int NOT NULL,
-  `PropertyId` int NOT NULL,
-  `ShiftStartDateTime` datetime DEFAULT NULL,
-  `ShiftEndDateTime` datetime DEFAULT NULL,
-  `ShiftLength` int DEFAULT NULL,
-  PRIMARY KEY (`ShiftId`),
-  CONSTRAINT `FK_StaffShift`    FOREIGN KEY (`StaffId`)    REFERENCES `PropertyStaff`(`StaffId`) ON DELETE RESTRICT,
-  CONSTRAINT `FK_ShiftProperty` FOREIGN KEY (`PropertyId`) REFERENCES `Properties`(`PropertyId`) ON DELETE RESTRICT
-) 
+  PRIMARY KEY (`ShiftId`)
+  );
+
+CALL AddColumnIfNotExists('Staff_Shifts','StaffId','int NOT NULL');
+CALL AddColumnIfNotExists('Staff_Shifts','PropertyId','int NOT NULL');
+CALL AddColumnIfNotExists('Staff_Shifts','ShiftStartDateTime','datetime DEFAULT NULL');
+CALL AddColumnIfNotExists('Staff_Shifts','ShiftEndDateTime','datetime DEFAULT NULL');
+CALL AddColumnIfNotExists('Staff_Shifts','ShiftLength','int DEFAULT NULL');
+    
+CALL AddForeignKeyIfNotExists ('Staff_Shifts','FK_StaffShift','StaffId','PropertyStaff','StaffId');
+CALL AddForeignKeyIfNotExists ('Staff_Shifts','FK_ShiftProperty','PropertyId','Properties','PropertyId');
+
