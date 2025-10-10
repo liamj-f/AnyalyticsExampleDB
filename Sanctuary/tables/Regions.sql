@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `Regions` (
   `RegionId` int NOT NULL AUTO_INCREMENT,
     PRIMARY KEY (`RegionId`)
-)
+);
 
 CALL AddColumnIfNotExists ('Regions','NUTS1_Region','varchar(50) DEFAULT NULL');
 CALL AddColumnIfNotExists ('Regions','Population', 'int DEFAULT NULL');
