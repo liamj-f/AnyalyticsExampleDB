@@ -1,9 +1,10 @@
-create table SatisafactionScores
+create table IF NOT EXISTS SatisafactionScores
 (SatisfactionScoreId int not null AUTO_INCREMENT,
-  Score tinyint not null,
-  ScoreDateTime datetime not null,
-  PropertyId int not null,
   PRIMARY KEY (`SatisfactionScoreId`),
-  Constraint `FK_PropertySatisfactionScore` FOREIGN KEY (`PropertyId`) REFERENCES `Properties` (`PropertyId`) ON DELETE RESTRICT
   )
-  
+
+CALL AddColumnIfNotExists ('SatisafactionScores','Score', 'tinyint not null');
+CALL AddColumnIfNotExists ('SatisafactionScores','ScoreDateTime', 'datetime not null');
+CALL AddColumnIfNotExists ('SatisafactionScores','PropertyId','int not null');
+
+CALL AddForeignKeyIfNotExists ( 'SatisafactionScores','FK_PropertySatisfactionScore', 'PropertyId','Properties', 'PropertyId')
