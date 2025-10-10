@@ -93,7 +93,7 @@ jobs:
           mysql --host="${{ vars.PI_HOST_IP }}" \
                 --user="${{ vars.ATLAS_USER }}" \
                 --password="${{ secrets.ATLAS_PASSWORD }}" \
-                --database="${$DB_NAME}" < Sanctuary/schema.sql 2>&1 | tee /dev/stderr
+                --database="${DB_NAME}" < Sanctuary/schema.sql 2>&1 | tee /dev/stderr
 
       - name: Bring down VPN
         if: always ()
