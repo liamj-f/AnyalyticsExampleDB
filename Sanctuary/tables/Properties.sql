@@ -3,35 +3,9 @@ CREATE TABLE If not exists `Properties` (
   PRIMARY KEY (`PropertyId`)
 ) ;
 
-ALTER TABLE Properties ADD COLUMN `PropertyTypeId` int NOT NULL;
-ALTER TABLE Properties `PropertyName` varchar(50) NOT NULL;
-ALTER TABLE Properties `RegionId` int NOT NULL;
+CALL AddColumnIfNotExists ('Properties','ProperyTypeId','INT','NOT NULL');
+CALL AddColumnIfNotExists ('Properties','PropertyName','varchar(50)','NOT NULL');
+CALL AddColumnIfNotExists ('Properties','RegionId', 'int','NOT NULL');
 
-SET @fk_exists := (
-    SELECT COUNT(*) 
-    FROM information_schema.table_constraints 
-    WHERE constraint_schema = DATABASE()
-      AND table_name = 'Properties'
-      AND constraint_name = 'FK_PropertyTypes'
-      AND constraint_type = 'FOREIGN KEY'
-);
-
-IF @fk_exists = 0 THEN
-    ALTER TABLE `Properties`
-        ADD CONSTRAINT `FK_PropertyTypes` FOREIGN KEY (`PropertyTypeId`) REFERENCES `PropertyTypes` (`PropertyTypeId`) ON DELETE RESTRICT;
-END IF;
-
--- FK_PropertyRegion
-SET @fk_exists := (
-    SELECT COUNT(*) 
-    FROM information_schema.table_constraints 
-    WHERE constraint_schema = DATABASE()
-      AND table_name = 'Properties'
-      AND constraint_name = 'FK_PropertyRegion'
-      AND constraint_type = 'FOREIGN KEY'
-);
-
-IF @fk_exists = 0 THEN
-    ALTER TABLE `Properties`
-        ADD CONSTRAINT `FK_PropertyRegion` FOREIGN KEY (`RegionId`) REFERENCES `Regions` (`RegionId`) ON DELETE RESTRICT;
-END IF;
+CALL AddForeignKeyIfNotExists ('Properties', 'FK_PropertyTypes', 'PropertyTypeId', 'PropertyTypes', 'PropertyTypeId');
+CALL AddForeignKeyIfNotExists ('Properties', 'FK_PropertyRegion', 'RegionId', 'Regions', 'RegionId');
