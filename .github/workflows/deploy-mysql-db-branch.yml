@@ -85,7 +85,22 @@ jobs:
                 --password="${{ secrets.ATLAS_PASSWORD }}" \
                 -e "CREATE DATABASE IF NOT EXISTS \`${DB_NAME}\` CHARACTER SET latin1 COLLATE latin1_general_ci;"
            echo "creating database: $DB_NAME"   
-           
+
+      - name: Check Branch DB created
+        run: |
+         DB_EXISTS=$(mysql --host="${{ vars.PI_HOST_IP }}" \
+                      --user="${{ vars.ATLAS_USER }}" \
+                      --password="${{ secrets.ATLAS_PASSWORD }}" \
+                      --batch --skip-column-names \
+                      -e "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '${DB_NAME}';")
+
+         if [ -z "$DB_EXISTS" ]; then
+          echo "❌ Database $DB_NAME was not created."
+          exit 1
+          else
+          echo "✅ Database $DB_NAME exists."
+         fi
+  
       - name: Run SQL scripts
         run: |
           set -euo pipefail
