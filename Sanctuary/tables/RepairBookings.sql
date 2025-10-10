@@ -1,10 +1,12 @@
-create table RepairBookings
+create table IF NOT EXISTS `RepairBookings`
 (RepairId int not null AUTO_INCREMENT,
-PropertyId int not null,
-LoggedDateTime datetime not null,
-CompletedDateTime datetime,
-RepairCategoryId int,
-Primary Key (`RepairId`),
-Constraint `FK_PropertyRepair` FOREIGN KEY (`PropertyId`) REFERENCES `Properties` (`PropertyId`) ON DELETE RESTRICT,
-Constraint `FK_RepairCategoryBooking` FOREIGN KEY (`RepairCategoryId`) REFERENCES `RepairCategories` (`RepairCategoryId`) ON DELETE RESTRICT
-)
+Primary Key (`RepairId`)
+);
+
+CALL AddColumnIfNotExists ('RepairBookings','PropertyId','int not null');
+CALL AddColumnIfNotExists ('RepairBookings','LoggedDateTime', 'datetime not null');
+CALL AddColumnIfNotExists ('RepairBookings','CompletedDateTime', 'datetime');
+CALL AddColumnIfNotExists ('RepairBookings','RepairCategoryId', 'int');
+
+CALL AddForeignKeyIfNotExists ('RepairBookings','FK_PropertyRepair','PropertyId','Properties','PropertyId');
+CALL AddForeignKeyIfNotExists ('RepairBookings','FK_RepairCategoryBooking','RepairCategoryId','RepairCategories','RepairCategoryId');
