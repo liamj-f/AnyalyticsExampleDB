@@ -4,13 +4,13 @@ create table if not exists Calendar
 `Date` date primary key
 );
 
-ALTER TABLE Calendar ADD COLUMN IF NOT EXISTS `DayName` VARCHAR(20);
-ALTER TABLE Calendar ADD COLUMN IF NOT EXISTS `DayOfWeek` INT;
-ALTER TABLE Calendar ADD COLUMN IF NOT EXISTS `WeekOfYear` INT;
-ALTER TABLE Calendar ADD COLUMN IF NOT EXISTS `MonthName` VARCHAR(20);
-ALTER TABLE Calendar ADD COLUMN IF NOT EXISTS `Month` INT;
-ALTER TABLE Calendar ADD COLUMN IF NOT EXISTS `Year` INT;
-ALTER TABLE Calendar ADD COLUMN IF NOT EXISTS `IsWeekend` BIT;
+CALL AddColumnIfNotExists ('Calendar', 'DayName', 'VARCHAR(20) not null')
+CALL AddColumnIfNotExists ('Calendar','DayOfWeek','INT','NOT NULL');
+CALL AddColumnIfNotExists ('Calendar','WeekOfYear','INT','NOT NULL');
+CALL AddColumnIfNotExists ('Calendar','MonthName', 'VARCHAR(20)','NOT NULL');
+CALL AddColumnIfNotExists ('Calendar','Month', 'INT','NOT NULL');
+CALL AddColumnIfNotExists ('Calendar','Year', 'INT','NOT NULL');
+CALL AddColumnIfNotExists ('Calendar','IsWeekend', 'BIT','NOT NULL');
 
 DROP PROCEDURE IF EXISTS FillCalendar;
 
