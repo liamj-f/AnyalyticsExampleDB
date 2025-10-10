@@ -1,6 +1,6 @@
 DELIMITER //
 
-CREATE PROCEDURE AddColumnIfNotExists(
+CREATE PROCEDURE IF NOT EXISTS AddColumnIfNotExists(
     IN table_name VARCHAR(64),
     IN column_name VARCHAR(64),
     IN column_definition VARCHAR(255)
