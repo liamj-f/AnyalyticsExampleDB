@@ -1,3 +1,4 @@
+Select DATABASE() AS CurrentDatabase;
 SOURCE Sanctuary/procedures/AddColumnIfNotExists.sql;
 SOURCE Sanctuary/procedures/AddForeignKeyIfNotExists.sql;
 
