@@ -101,6 +101,14 @@ jobs:
           echo "✅ Database $DB_NAME exists."
          fi
   
+      - name: Grant my user Access to Branch DB
+        run: |
+          mysql --host="${{ vars.PI_HOST_IP }}" \
+                --user="${{ vars.ATLAS_USER }}" \
+                --password="${{ secrets.ATLAS_PASSWORD }}" \
+                -e "GRANT ALL PRIVILEGES ON \`${DB_NAME}\`.* TO '${{ secrets.PORTAINER_USER }}'@'%';
+                FLUSH PRIVILEGES;"
+
       - name: Run SQL scripts
         run: |
           set -euo pipefail
