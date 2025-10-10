@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `PropertyType` (
+CREATE TABLE IF NOT EXISTS `PropertyTypes` (
   `PropertyTypeId` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`PropertyTypeId`)
 );
