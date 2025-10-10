@@ -87,6 +87,7 @@ jobs:
            echo "creating database: $DB_NAME"   
            
       - name: Run SQL scripts
+        continue-on-error: true
         run: |
           set -euo pipefail
           mysql --host="${{ vars.PI_HOST_IP }}" \
