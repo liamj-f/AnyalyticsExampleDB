@@ -5,12 +5,12 @@ create table if not exists Calendar
 );
 
 CALL AddColumnIfNotExists ('Calendar', 'DayName', 'VARCHAR(20) not null')
-CALL AddColumnIfNotExists ('Calendar','DayOfWeek','INT','NOT NULL');
-CALL AddColumnIfNotExists ('Calendar','WeekOfYear','INT','NOT NULL');
-CALL AddColumnIfNotExists ('Calendar','MonthName', 'VARCHAR(20)','NOT NULL');
-CALL AddColumnIfNotExists ('Calendar','Month', 'INT','NOT NULL');
-CALL AddColumnIfNotExists ('Calendar','Year', 'INT','NOT NULL');
-CALL AddColumnIfNotExists ('Calendar','IsWeekend', 'BIT','NOT NULL');
+CALL AddColumnIfNotExists ('Calendar','DayOfWeek','INT NOT NULL');
+CALL AddColumnIfNotExists ('Calendar','WeekOfYear','INT NOT NULL');
+CALL AddColumnIfNotExists ('Calendar','MonthName', 'VARCHAR(20) NOT NULL');
+CALL AddColumnIfNotExists ('Calendar','Month', 'INT NOT NULL');
+CALL AddColumnIfNotExists ('Calendar','Year', 'INT NOT NULL');
+CALL AddColumnIfNotExists ('Calendar','IsWeekend','BIT NOT NULL');
 
 DROP PROCEDURE IF EXISTS FillCalendar;
 
