@@ -3,7 +3,7 @@ CREATE TABLE If not exists `Properties` (
   PRIMARY KEY (`PropertyId`)
 ) ;
 
-CALL AddColumnIfNotExists ('Properties','ProperyTypeId','INT NOT NULL');
+CALL AddColumnIfNotExists ('Properties','PropertyTypeId','INT NOT NULL');
 CALL AddColumnIfNotExists ('Properties','PropertyName','varchar(50) NOT NULL');
 CALL AddColumnIfNotExists ('Properties','RegionId', 'int NOT NULL');
 
