@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `PropertyType` (
   `PropertyTypeId` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`PropertyTypeId`)
-)
+);
 
 CALL AddColumnIfNotExists('PropertyType','PropertyTypeName','varchar(50) NOT NULL');
   
