@@ -22,8 +22,8 @@ BEGIN
     IF constraint_exists = 0 THEN
         -- Print message before adding the constraint
         SELECT CONCAT(
-            'Adding foreign key ', constraint_name, ' on ', table_name, ' (', column_name, 
-            ') referencing ', referenced_table, ' (', referenced_column, ')'
+            'Adding foreign key ', in_constraint_name, ' on ', in_table_name, ' (', in_column_name, 
+            ') referencing ', in_referenced_table, ' (', in_referenced_column, ')'
         ) AS Message;
 
         SET @query = CONCAT(
@@ -39,7 +39,7 @@ BEGIN
         DEALLOCATE PREPARE stmt;
     ELSE
         -- Optional: print that the constraint already exists
-        SELECT CONCAT('Foreign key ', constraint_name, ' already exists on table ', table_name) AS Message;
+        SELECT CONCAT('Foreign key ', in_constraint_name, ' already exists on table ', in_table_name) AS Message;
     END IF;
 END;
 //
