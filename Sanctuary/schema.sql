@@ -1,3 +1,6 @@
+SOURCE Sanctuary/procedures/AddColumnIfNotExists.sql;
+SOURCE Sanctuary/procedures/AddForeignKeyIfNotExists.sql;
+
 SOURCE Sanctuary/tables/Calendar.sql;
 SOURCE Sanctuary/tables/Regions.sql;
 SOURCE Sanctuary/tables/Properties.sql;
