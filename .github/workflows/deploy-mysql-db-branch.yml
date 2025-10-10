@@ -13,9 +13,6 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-      - name: List Sanctuary folder
-        run: ls -R Sanctuary
-
       - name: Install WireGuard
         run: |
           sudo apt-get update
@@ -87,7 +84,8 @@ jobs:
                 --user="${{ vars.ATLAS_USER }}" \
                 --password="${{ secrets.ATLAS_PASSWORD }}" \
                 -e "CREATE DATABASE IF NOT EXISTS \`${DB_NAME}\` CHARACTER SET latin1 COLLATE latin1_general_ci;"
-                  
+           echo "creating database: $DB_NAME"   
+           
       - name: Run SQL scripts
         run: |
           set -euo pipefail
@@ -96,7 +94,11 @@ jobs:
                 --password="${{ secrets.ATLAS_PASSWORD }}" \
                   $DB_NAME < Sanctuary/schema.sql 2>&1 | tee /dev/stderr
 
-#          mysql -h $MYSQL_HOST -u $MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DB < ./sql/data.sql
+      - name: Bring down VPN
+        run: |
+          sudo wg-quick down 
+          sudo wg show
+
 
 
 #      - name: Run Atlas schema apply
