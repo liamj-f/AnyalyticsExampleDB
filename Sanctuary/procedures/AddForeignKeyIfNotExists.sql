@@ -1,5 +1,5 @@
 DELIMITER //
-
+drop procedure if exists AddForeignKeyIfNotExists;
 CREATE PROCEDURE IF NOT EXISTS AddForeignKeyIfNotExists(
     IN in_table_name VARCHAR(64),
     IN in_constraint_name VARCHAR(64),
@@ -32,7 +32,7 @@ BEGIN
             ' FOREIGN KEY (', in_column_name, ') REFERENCES ',
             in_referenced_table, '(', in_referenced_column, ') ON DELETE RESTRICT'
         );
-        select @query;
+--        select @query;
 
         PREPARE stmt FROM @query;
         EXECUTE stmt;
