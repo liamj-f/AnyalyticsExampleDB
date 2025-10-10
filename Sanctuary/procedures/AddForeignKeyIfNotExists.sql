@@ -13,11 +13,18 @@ BEGIN
     SELECT COUNT(*)
     INTO constraint_exists
     FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS
-    WHERE CONSTRAINT_NAME = constraint_name
+    WHERE TABLE_SCHEMA = DATABASE()
       AND TABLE_NAME = table_name
+      AND CONSTRAINT_NAME = constraint_name
       AND CONSTRAINT_TYPE = 'FOREIGN KEY';
 
     IF constraint_exists = 0 THEN
+        -- Print message before adding the constraint
+        SELECT CONCAT(
+            'Adding foreign key `', constraint_name, '` on `', table_name, '` (', column_name, 
+            ') referencing `', referenced_table, '` (', referenced_column, ')'
+        ) AS Message;
+
         SET @query = CONCAT(
             'ALTER TABLE ', table_name,
             ' ADD CONSTRAINT ', constraint_name,
@@ -28,6 +35,11 @@ BEGIN
         PREPARE stmt FROM @query;
         EXECUTE stmt;
         DEALLOCATE PREPARE stmt;
+    ELSE
+        -- Optional: print that the constraint already exists
+        SELECT CONCAT(
+            'Foreign key `', constraint_name, '` already exists on table `', table_name, '`'
+        ) AS Message;
     END IF;
 END;
 //
