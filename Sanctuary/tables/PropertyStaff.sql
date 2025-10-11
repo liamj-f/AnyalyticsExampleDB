@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS `PropertyStaff` (
   PRIMARY KEY (`StaffId`)
 ) ;
 
+CALL AddColumnIfNotExists ('PropertyStaff','FullName','varchar(50) NOT NULL');
 CALL AddColumnIfNotExists ('PropertyStaff','PropertyId','INT NOT NULL');
 CALL AddColumnIfNotExists ('PropertyStaff','StartDate','date NOT NULL');
 CALL AddColumnIfNotExists ('PropertyStaff','EndDate', 'date default NULL');
