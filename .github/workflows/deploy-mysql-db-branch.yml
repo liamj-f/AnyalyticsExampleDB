@@ -97,7 +97,7 @@ jobs:
 
             for ((i=1; i<=repeats; i++)); do
               echo "-- $schema_name batch $i" >> "$OUTPUT_FILE"
-              curl -s "https://api.mockaroo.com/api/${schema_name}.sql?key=${{ secrets.MOCKAROO_API_KEY }}&count=${count}" >> "$OUTPUT_FILE"
+              curl -s "https://api.mockaroo.com/api/${schema_name}.sql?key=${{ secrets.MOCKAROO_KEY }}&count=${count}" >> "$OUTPUT_FILE"
               echo -e "\n" >> "$OUTPUT_FILE"
             done
           }
