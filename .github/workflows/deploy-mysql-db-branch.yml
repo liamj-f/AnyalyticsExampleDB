@@ -78,6 +78,51 @@ jobs:
                 --user="${{ vars.DEPLOYMENT_USER }}" \
                 --password="${{ secrets.ATLAS_PASSWORD }}" \
                 --database="${DB_NAME}" < Sanctuary/schema.sql 
+
+      - name: Populate database from Mockaroo APIs
+        run: |
+          echo "Fetching mock data from Mockaroo APIs..."
+
+          OUTPUT_FILE="mock_data.sql"
+          : > "$OUTPUT_FILE"  # truncate or create empty file
+
+          # Function to fetch a schema N times
+          fetch_schema() {
+            local schema_name="$1"
+            local count="$2"
+            local repeats="$3"
+
+            echo "Fetching $schema_name ($count rows × $repeats)..."
+
+            for ((i=1; i<=repeats; i++)); do
+              echo "-- $schema_name batch $i" >> "$OUTPUT_FILE"
+              curl -s "https://api.mockaroo.com/api/${schema_name}.sql?key=${{ secrets.MOCKAROO_API_KEY }}&count=${count}" >> "$OUTPUT_FILE"
+              echo -e "\n" >> "$OUTPUT_FILE"
+            done
+          }
+
+          # fetch_schema {mockaroo schema id} {rows} {repeat}
+          # Properties
+          fetch_schema "d0b31310" 562 1
+          # PropertyStaff
+          fetch_schema "c0d93b20" 1000 1
+          # StaffShifts
+          fetch_schema "1575b660" 1000 5
+          # SatisfactionScores
+          fetch_schema "4708eba0" 1000 4
+          # RepairBookings
+          fetch_schema "6d51f760" 1000 2
+          
+          echo "Combined mock data SQL file created:"
+          head -n 10 "$OUTPUT_FILE"
+
+          echo "Applying mock data to database..."
+          mysql --host="${{ vars.PI_HOST_IP }}" \
+                --user="${{ vars.DEPLOYMENT_USER }}" \
+                --password="${{ secrets.ATLAS_PASSWORD }}" \
+                $DB_NAME < "$OUTPUT_FILE"
+
+          echo "All mock data successfully inserted."
                 
       - name: Bring down VPN
         if: always ()
