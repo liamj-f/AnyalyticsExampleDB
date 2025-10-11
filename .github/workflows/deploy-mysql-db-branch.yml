@@ -106,9 +106,9 @@ jobs:
           # Properties
           fetch_schema "d0b31310" 562 1
           # PropertyStaff
-          fetch_schema "c0d93b20" 1000 1
+          fetch_schema "c0d93b20" 1000 5
           # StaffShifts
-          fetch_schema "1575b660" 1000 5
+          fetch_schema "1575b660" 1000 20
           # SatisfactionScores
           fetch_schema "4708eba0" 1000 4
           # RepairBookings
