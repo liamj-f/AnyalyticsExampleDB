@@ -87,7 +87,7 @@ jobs:
           # Helper to fetch + apply schema N times
           fetch_schema() {
             local schema_name="$1"
-            local schema_id = "$2"
+            local schema_id="$2"
             local count="$3"
             local repeats="$4"
 
