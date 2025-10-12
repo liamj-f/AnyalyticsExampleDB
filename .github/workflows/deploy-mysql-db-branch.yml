@@ -97,8 +97,7 @@ jobs:
               echo "Fetching batch $i for $schema_name..."
 
               # Fetch mock data into temp file
-              echo "https://api.mockaroo.com/api/${schema_id}.sql?key=${{ secrets.MOCKAROO_KEY }}&count=${count}" 
-              curl -s "https://api.mockaroo.com/api/${schema_id}.sql?key=${{ secrets.MOCKAROO_KEY }}&count=${count}" \
+              curl -s "https://api.mockaroo.com/api/${schema_id}?key=${{ secrets.MOCKAROO_KEY }}&count=${count}" \
                 -o "mock_${schema_name}_${i}.sql"
 
               if [ ! -s "$OUTPUT_FILE" ]; then
