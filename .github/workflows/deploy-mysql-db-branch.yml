@@ -86,6 +86,7 @@ jobs:
                 --database="${DB_NAME}" < Sanctuary/schema.sql 
           
       - name: Populate database from Mockaroo APIs
+        if: ${{ github.event.inputs.SchemaOnly == 'false' }}
         run: |
           echo "Populating MySQL directly from Mockaroo APIs..."
 
