@@ -45,16 +45,13 @@ jobs:
       - name: Create Atlas User
         run: |
           mysql --defaults-extra-file=.my.cnf \
-                -e "DROP USER IF EXISTS '${{ vars.DEPLOYMENT_USER }}'@'%';
-                    CREATE USER IF NOT EXISTS '${{ vars.DEPLOYMENT_USER }}'@'%' IDENTIFIED WITH mysql_native_password BY '${{ secrets.ATLAS_PASSWORD }}'; 
+                -e "CREATE USER IF NOT EXISTS '${{ vars.DEPLOYMENT_USER }}'@'%' IDENTIFIED WITH mysql_native_password BY '${{ secrets.ATLAS_PASSWORD }}'; 
                     GRANT ALL PRIVILEGES ON *.* TO '${{ vars.DEPLOYMENT_USER }}'@'%' WITH GRANT OPTION;
                     FLUSH PRIVILEGES;"
                     
       - name: Test MySQL connection manually
         run: |
-          mysql --host="${{ vars.PI_HOST_IP }}" \
-                --user="${{ vars.DEPLOYMENT_USER }}" \
-                --password='${{ secrets.ATLAS_PASSWORD }}' \
+          mysql --defaults-extra-file=.my.cnf \
                 -e "select current_user();"                    
 
       - name: Set environment variables
@@ -73,18 +70,14 @@ jobs:
       - name: Create Branch Database
         run: |
           set -euo pipefail
-          mysql --host="${{ vars.PI_HOST_IP }}" \
-                --user="${{ vars.DEPLOYMENT_USER }}" \
-                --password="${{ secrets.ATLAS_PASSWORD }}" \
+          mysql --defaults-extra-file=.my.cnf \
                 -e "CREATE DATABASE IF NOT EXISTS \`${DB_NAME}\` CHARACTER SET latin1 COLLATE latin1_general_ci;"
            echo "creating database: $DB_NAME"   
 
       - name: Run SQL scripts
         run: |
           set -euo pipefail
-          mysql --host="${{ vars.PI_HOST_IP }}" \
-                --user="${{ vars.DEPLOYMENT_USER }}" \
-                --password="${{ secrets.ATLAS_PASSWORD }}" \
+          mysql --defaults-extra-file=.my.cnf \
                 --database="${DB_NAME}" < Sanctuary/schema.sql 
           
       - name: Populate database from Mockaroo APIs
@@ -114,13 +107,11 @@ jobs:
 
               echo "Inserting $schema_name batch $i into ${DB_NAME}..."
 
-              mysql --host="${{ vars.PI_HOST_IP }}" \
-                --user="${{ vars.DEPLOYMENT_USER }}" \
-                --password="${{ secrets.ATLAS_PASSWORD }}" \
-                --database="${DB_NAME}" < "mock_${schema_name}_${i}.sql" || {
-                        echo "MySQL insert failed for $schema_name batch $i"
-                        exit 1
-                    }
+              mysql --defaults-extra-file=.my.cnf \
+                    --database="${DB_NAME}" < "mock_${schema_name}_${i}.sql" || {
+                           echo "MySQL insert failed for $schema_name batch $i"
+                           exit 1
+                           }
               echo "Completed $schema_name batch $i"
             done
 
