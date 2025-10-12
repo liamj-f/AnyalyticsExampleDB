@@ -79,52 +79,58 @@ jobs:
                 --user="${{ vars.DEPLOYMENT_USER }}" \
                 --password="${{ secrets.ATLAS_PASSWORD }}" \
                 --database="${DB_NAME}" < Sanctuary/schema.sql 
-
+          
       - name: Populate database from Mockaroo APIs
         run: |
-          echo "Fetching mock data from Mockaroo APIs..."
+          echo "Populating MySQL directly from Mockaroo APIs..."
 
-          OUTPUT_FILE="mock_data.sql"
-          : > "$OUTPUT_FILE"  # truncate or create empty file
-
-          # Function to fetch a schema N times
+          # Helper to fetch + apply schema N times
           fetch_schema() {
             local schema_name="$1"
-            local count="$2"
-            local repeats="$3"
+            local schema_id = "$2"
+            local count="$3"
+            local repeats="$4"
 
-            echo "Fetching $schema_name ($count rows × $repeats)..."
+            echo "Processing $schema_name ($count rows × $repeats batches)"
 
             for ((i=1; i<=repeats; i++)); do
-              echo "-- $schema_name batch $i" >> "$OUTPUT_FILE"
-              curl -s "https://api.mockaroo.com/api/${schema_name}.sql?key=${{ secrets.MOCKAROO_KEY }}&count=${count}" >> "$OUTPUT_FILE"
-              echo -e "\n" >> "$OUTPUT_FILE"
-            done
-          }
+              echo "Fetching batch $i for $schema_name..."
 
-          # fetch_schema {mockaroo schema id} {rows} {repeat}
-          # Properties
-          fetch_schema "d0b31310" 562 1
-          # PropertyStaff
-          fetch_schema "c0d93b20" 1000 5
-          # StaffShifts
-          fetch_schema "1575b660" 1000 20
-          # SatisfactionScores
-          fetch_schema "4708eba0" 1000 4
-          # RepairBookings
-          fetch_schema "6d51f760" 1000 2
-          
-          echo "Combined mock data SQL file created:"
-          head -n 10 "$OUTPUT_FILE"
+              # Fetch mock data into temp file
+              curl -s "https://api.mockaroo.com/api/${schema_id}.sql?key=${MOCKAROO_KEY}&count=${count}" \
+                -o "mock_${schema_name}_${i}.sql"
 
-          echo "Applying mock data to database..."
-          mysql --host="${{ vars.PI_HOST_IP }}" \
+              if [ ! -s "$OUTPUT_FILE" ]; then
+                echo "Failed to fetch data for $schema_name batch $i"
+                exit 1
+              fi
+
+              echo "Inserting $schema_name batch $i into ${DB_NAME}..."
+
+              mysql --host="${{ vars.PI_HOST_IP }}" \
                 --user="${{ vars.DEPLOYMENT_USER }}" \
                 --password="${{ secrets.ATLAS_PASSWORD }}" \
-                $DB_NAME < "$OUTPUT_FILE"
+                --database="${DB_NAME}" < "$OUTPUT_FILE" || {
+                        echo "MySQL insert failed for $schema_name batch $i"
+                        exit 1
+                    }
 
-          echo "All mock data successfully inserted."
-                
+              rm -f "$OUTPUT_FILE"
+              echo "Completed $schema_name batch $i"
+            done
+
+            echo "Finished all batches for $schema_name"
+          }
+
+          # Fetch schemas in dependency order
+          
+          # fetch_schema {Schema name} {mockaroo schema id} {rows} {repeat}
+          fetch_schema "Properties" "d0b31310" 562 1
+          fetch_schema "PropertyStaff" "c0d93b20" 1000 5
+          fetch_schema "StafShifts" "1575b660" 1000 20
+          fetch_schema "SatisfactionScores" "4708eba0" 1000 4
+          fetch_schema "RepairBookings" "6d51f760" 1000 2
+          
       - name: Bring down VPN
         if: always ()
         run: |
