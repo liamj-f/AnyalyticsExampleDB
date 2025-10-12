@@ -5,8 +5,13 @@ on:
   push:
     branches:
       - "*"
+      - "!main"    
   workflow_dispatch:
-
+    inputs:
+      SchemaOnly:
+        required: true
+        default: true 
+        
 jobs:
   deploy:
     runs-on: ubuntu-latest
