@@ -22,31 +22,36 @@ jobs:
         run: |
           echo "${{ secrets.WG_CONFIG }}" > wg0.conf
 
-      - name: Bring up VPN
-        run: |
-          sudo wg-quick up ./wg0.conf
-          sudo wg show
           
       - name: Override system DNS resolver
         run: |
           sudo rm /etc/resolv.conf
           echo "nameserver 1.1.1.1" | sudo tee /etc/resolv.conf
+
+      - name: Bring up VPN
+        run: |
+          sudo wg-quick up ./wg0.conf
+          sudo wg show
+
+      - name: Make mysql config file    
+        run: |
+          cat > .my.cnf <<EOF
+          [client]
+          user=${{ vars.DEPLOYMENT_USER }}
+          password=${{ secrets.ATLAS_PASSWORD }}
+          host=${{ vars.PI_HOST_IP }}
+          EOF
           
       - name: Create Atlas User
         run: |
-          mysql --host="${{ vars.PI_HOST_IP }}" \
-                --user="${{ vars.PORTAINER_USER }}" \
-                --password="${{ secrets.PI_PASSWORD }}" \
-                -e "DROP USER IF EXISTS '${{ vars.DEPLOYMENT_USER }}'@'%';
-                    CREATE USER IF NOT EXISTS '${{ vars.DEPLOYMENT_USER }}'@'%' IDENTIFIED WITH mysql_native_password BY '${{ secrets.ATLAS_PASSWORD }}'; 
+          mysql --defaults-extra-file=.my.cnf \
+                -e "CREATE USER IF NOT EXISTS '${{ vars.DEPLOYMENT_USER }}'@'%' IDENTIFIED WITH mysql_native_password BY '${{ secrets.ATLAS_PASSWORD }}'; 
                     GRANT ALL PRIVILEGES ON *.* TO '${{ vars.DEPLOYMENT_USER }}'@'%' WITH GRANT OPTION;
                     FLUSH PRIVILEGES;"
                     
       - name: Test MySQL connection manually
         run: |
-          mysql --host="${{ vars.PI_HOST_IP }}" \
-                --user="${{ vars.DEPLOYMENT_USER }}" \
-                --password='${{ secrets.ATLAS_PASSWORD }}' \
+          mysql --defaults-extra-file=.my.cnf \
                 -e "select current_user();"                    
 
       - name: Set environment variables
@@ -65,20 +70,63 @@ jobs:
       - name: Create Branch Database
         run: |
           set -euo pipefail
-          mysql --host="${{ vars.PI_HOST_IP }}" \
-                --user="${{ vars.DEPLOYMENT_USER }}" \
-                --password="${{ secrets.ATLAS_PASSWORD }}" \
+          mysql --defaults-extra-file=.my.cnf \
                 -e "CREATE DATABASE IF NOT EXISTS \`${DB_NAME}\` CHARACTER SET latin1 COLLATE latin1_general_ci;"
            echo "creating database: $DB_NAME"   
 
       - name: Run SQL scripts
         run: |
           set -euo pipefail
-          mysql --host="${{ vars.PI_HOST_IP }}" \
-                --user="${{ vars.DEPLOYMENT_USER }}" \
-                --password="${{ secrets.ATLAS_PASSWORD }}" \
+          mysql --defaults-extra-file=.my.cnf \
                 --database="${DB_NAME}" < Sanctuary/schema.sql 
-                
+          
+      - name: Populate database from Mockaroo APIs
+        run: |
+          echo "Populating MySQL directly from Mockaroo APIs..."
+
+          # Helper to fetch + apply schema N times
+          fetch_schema() {
+            local schema_name="$1"
+            local schema_id="$2"
+            local count="$3"
+            local repeats="$4"
+
+            echo "Processing $schema_name ($count rows × $repeats batches)"
+
+            for ((i=1; i<=repeats; i++)); do
+              echo "Fetching batch $i for $schema_name..."
+
+              # Fetch mock data into temp file
+              curl -s "https://api.mockaroo.com/api/${schema_id}?key=${{ secrets.MOCKAROO_KEY }}&count=${count}" \
+                -o "mock_${schema_name}_${i}.sql"
+
+              if [ ! -s "mock_${schema_name}_${i}.sql" ]; then
+                echo "Failed to fetch data for $schema_name batch $i"
+                exit 1
+              fi
+
+              echo "Inserting $schema_name batch $i into ${DB_NAME}..."
+
+              mysql --defaults-extra-file=.my.cnf \
+                    --database="${DB_NAME}" < "mock_${schema_name}_${i}.sql" || {
+                           echo "MySQL insert failed for $schema_name batch $i"
+                           exit 1
+                           }
+              echo "Completed $schema_name batch $i"
+            done
+
+            echo "Finished all batches for $schema_name"
+          }
+
+          # Fetch schemas in dependency order
+          
+          # fetch_schema {Schema name} {mockaroo schema id} {rows} {repeat}
+          fetch_schema "Properties" "d0b31310" 562 1
+          fetch_schema "PropertyStaff" "c0d93b20" 1000 5
+          fetch_schema "StafShifts" "1575b660" 1000 20
+          fetch_schema "SatisfactionScores" "4708eba0" 1000 4
+          fetch_schema "RepairBookings" "6d51f760" 1000 2
+          
       - name: Bring down VPN
         if: always ()
         run: |
