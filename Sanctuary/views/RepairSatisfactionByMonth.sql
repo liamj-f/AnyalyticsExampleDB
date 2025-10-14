@@ -2,7 +2,7 @@ Create or replace view RepairSatisfactionByMonth as
 
 with temp_satisfaction as (
 select 
-avg(s.Score) as ''
+avg(s.Score) as 'avgSatisfactionScore'
 ,date_format(s.ScoreDateTime, '%Y-%m-01') as 'MonthLogged'
 from SatisfactionScores as s
 where
