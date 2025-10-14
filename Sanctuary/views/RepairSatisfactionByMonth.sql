@@ -29,7 +29,7 @@ select
   temp_repairs.MonthLogged
   ,temp_repairs.AvgRepairWait
   ,temp_repairs.RepairCount
-  ,tmp_satisfaction.avgSatisfactionScore
+  ,temp_satisfaction.avgSatisfactionScore
 from temp_repairs
 inner join temp_satisfaction
 on temp_repairs.MonthLogged = temp_satisfaction.MonthLogged
