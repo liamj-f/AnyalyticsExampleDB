@@ -15,3 +15,4 @@ SOURCE Sanctuary/tables/StaffShifts.sql;
 	   
 SOURCE Sanctuary/views/AvgShiftSatisafaction.sql;
 SOURCE Sanctuary/views/StaffNumberSatisfaction.sql;
+SOURCE Sanctuary/views/RepairSatisfactionByMonth.sql;
