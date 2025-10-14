@@ -27,7 +27,7 @@ date_format(rb.LoggedDateTime, '%Y-%m-01')
 
 select
   temp_repairs.MonthLogged
-  ,temp_rapairs.AvgRepairWait
+  ,temp_repairs.AvgRepairWait
   ,temp_repairs.RepairCount
   ,tmp_satisfaction.avgSatisfactionScore
 from temp_repairs
